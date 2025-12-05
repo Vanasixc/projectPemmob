@@ -29,7 +29,7 @@ class HomeController extends GetxController {
   void increment() => count.value++;
 
   void login(String username, String password) {
-    if (username == 'admin' && password == 'admin') {
+    if (username == 'atmin' && password == 'admin') {
       Fluttertoast.showToast(msg: 'Selamat datang di $username');
       Get.offNamed(Routes.KALKULATOR_PAGE);
     } else {
