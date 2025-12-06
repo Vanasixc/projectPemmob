@@ -1,19 +1,14 @@
-import 'package:belajar_getx/app/routes/app_pages.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
-
-  final count = 0.obs;
-  // textfield variable
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  late final String username;
 
   @override
   void onInit() {
     super.onInit();
+
+    username = Get.arguments as String? ?? '';
   }
 
   @override
@@ -26,14 +21,5 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
-
-  void login(String username, String password) {
-    if (username == 'atmin' && password == 'admin') {
-      Fluttertoast.showToast(msg: 'Selamat datang di $username');
-      Get.offNamed(Routes.KALKULATOR_PAGE);
-    } else {
-      Fluttertoast.showToast(msg: 'Anda gagal login');
-    }
-  }
+  // void increment() => count.value++;
 }

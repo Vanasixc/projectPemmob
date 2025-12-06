@@ -13,134 +13,183 @@ class HomeView extends GetView<HomeController> {
       backgroundColor: Colors.amber,
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 100),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                Icon(Icons.add, color: Colors.white, size: 30),
+                SizedBox(height: 50),
                 Text(
-                  'Absensi',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  // 'Halo ${controller.username}! Selamat datang di aplikasi kami',
+                  'Selamat datang di aplikasi kami',
+                  style: TextStyle(fontSize: 21, color: Colors.white),
+                  textAlign: TextAlign.center,
                 ),
+                SizedBox(height: 15),
+                Text(
+                  'Fakultas: Matematika dan Ilmu Pengetahuan Alam',
+                  style: TextStyle(fontSize: 21, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'Prodi: Ilmu Komputer',
+                  style: TextStyle(fontSize: 21, color: Colors.white),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'Semester: 5',
+                  style: TextStyle(fontSize: 21, color: Colors.white),
+                ),
+                SizedBox(height: 15),
               ],
             ),
-            SizedBox(height: 90),
+            SizedBox(height: 27),
             Expanded(
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
                   ),
                 ),
-                child: Padding(
-                  padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: 20,
-                    vertical: 40,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Login',
-                        style: TextStyle(color: Colors.black, fontSize: 35),
-                      ),
-                      SizedBox(height: 30),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(
-                                0.5,
-                              ), // Warna bayangan dan transparansi
-                              spreadRadius:
-                                  5, // Seberapa jauh bayangan menyebar
-                              blurRadius: 5, // Tingkat keburaman
-                              offset: Offset(
-                                0,
-                                3,
-                              ), // Pergeseran bayangan (x, y)
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Fluttertoast.showToast(
+                                  msg: 'Nah ini ke halaman absen',
+                                );
+                              },
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                child: Card(
+                                  elevation: 5,
+                                  margin: EdgeInsets.all(10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(
+                                        'https://img.icons8.com/?size=100&id=vfiytIbdyR2f&format=png&color=000000',
+                                        scale: 1.6,
+                                      ),
+                                      Text(
+                                        'Absensi',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            GestureDetector(
+                              onTap: () {
+                                Fluttertoast.showToast(
+                                  msg: 'Fitur ini masih dikembangkan',
+                                );
+                              },
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                child: Card(
+                                  elevation: 5,
+                                  margin: EdgeInsets.all(10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(
+                                        'https://img.icons8.com/?size=100&id=12776&format=png&color=000000',
+                                        scale: 1.6,
+                                      ),
+                                      Text(
+                                        'Perkuliahan',
+                                        style: TextStyle(fontSize: 16),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                        child: TextField(
-                          controller: controller.usernameController,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.email),
-                            labelText: 'Username',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Fluttertoast.showToast(
+                                  msg: 'Fitur ini masih dikembangkan',
+                                );
+                              },
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                child: Card(
+                                  elevation: 5,
+                                  margin: EdgeInsets.all(10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(
+                                        'https://img.icons8.com/?size=100&id=20749&format=png&color=000000',
+                                        scale: 1.6,
+                                      ),
+                                      Text(
+                                        'Profile',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(
-                                0.5,
-                              ), // Warna bayangan dan transparansi
-                              spreadRadius:
-                                  5, // Seberapa jauh bayangan menyebar
-                              blurRadius: 5, // Tingkat keburaman
-                              offset: Offset(
-                                0,
-                                3,
-                              ), // Pergeseran bayangan (x, y)
+                            SizedBox(width: 10),
+                            GestureDetector(
+                              onTap: () {
+                                Fluttertoast.showToast(
+                                  msg:
+                                      'Ini harusnya muncul semacam pop up buat confirm log out',
+                                );
+                              },
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                child: Card(
+                                  elevation: 5,
+                                  margin: EdgeInsets.all(10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(
+                                        'https://img.icons8.com/?size=100&id=119068&format=png&color=000000',
+                                        scale: 1.6,
+                                      ),
+                                      Text(
+                                        'Logout',
+                                        style: TextStyle(fontSize: 16),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                        child: TextField(
-                          controller: controller.passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.password),
-                            labelText: 'Password',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 50),
-                      Center(
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            elevation: WidgetStatePropertyAll(5),
-                            padding: WidgetStatePropertyAll(
-                              EdgeInsets.symmetric(horizontal: 70, vertical: 5),
-                            ),
-                            backgroundColor: WidgetStatePropertyAll(
-                              Colors.amber,
-                            ),
-                          ),
-                          onPressed: () {
-                            controller.login(
-                              controller.usernameController.text,
-                              controller.passwordController.text,
-                            );
-                          },
-                          child: Text(
-                            'Login',
-                            style: TextStyle(color: Colors.white, fontSize: 30),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),

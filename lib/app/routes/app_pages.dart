@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/kalkulator_page/bindings/kalkulator_page_binding.dart';
-import '../modules/kalkulator_page/views/kalkulator_page_view.dart';
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
 
 part 'app_routes.dart';
 
@@ -19,9 +19,9 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.KALKULATOR_PAGE,
-      page: () => const KalkulatorPageView(),
-      binding: KalkulatorPageBinding(),
+      name: _Paths.LOGIN,
+      page: () => const LoginView(),
+      binding: LoginBinding(),
     ),
   ];
 }
