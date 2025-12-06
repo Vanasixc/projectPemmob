@@ -1,9 +1,12 @@
 import 'package:belajar_getx/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../../controllers/auth_controllers.dart';
+
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
+  final authC = Get.put(AuthControllers());
   //TODO: Implement HomeController
 
   final count = 0.obs;
@@ -26,18 +29,12 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void isLogin() {
+    String nama = usernameController.text;
+    String pass = passwordController.text;
 
-  void login(String username, String password) {
-    if (username == 'admin' && password == 'admin') {
-      Fluttertoast.showToast(msg: 'Selamat datang di $username');
-      // mengirim data username ke halaman home
-      // Get.offNamed digunakan agar user tidak bisa kembali ke halama login (tidak ada tombol back di pojok kiri atas home)
-      Get.offNamed(Routes.HOME, arguments: usernameController.text);
-    } else {
-      Fluttertoast.showToast(msg: 'Anda gagal login');
+    if (authC.login(nama, pass)) {
+      Get.offNamed(Routes.HOME);
     }
   }
-
-  
 }

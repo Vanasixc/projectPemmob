@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/login_controller.dart';
+import '../../../controllers/auth_controllers.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -126,12 +127,7 @@ class LoginView extends GetView<LoginController> {
                               Colors.amber,
                             ),
                           ),
-                          onPressed: () {
-                            controller.login(
-                              controller.usernameController.text,
-                              controller.passwordController.text,
-                            );
-                          },
+                          onPressed: () => controller.isLogin(),
                           child: Text(
                             'Login',
                             style: TextStyle(color: Colors.white, fontSize: 30),

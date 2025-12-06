@@ -1,3 +1,4 @@
+import 'package:belajar_getx/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -65,9 +66,7 @@ class HomeView extends GetView<HomeController> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Fluttertoast.showToast(
-                                  msg: 'Nah ini ke halaman absen',
-                                );
+                                Get.toNamed(Routes.ABSENSI);
                               },
                               child: Container(
                                 height: 150,
@@ -157,9 +156,16 @@ class HomeView extends GetView<HomeController> {
                             SizedBox(width: 10),
                             GestureDetector(
                               onTap: () {
-                                Fluttertoast.showToast(
-                                  msg:
-                                      'Ini harusnya muncul semacam pop up buat confirm log out',
+                                Get.defaultDialog(
+                                  title: 'Apakah anda yakin ingin keluar?',
+                                  middleText:
+                                      'Setelah keluar, anda perlu Login kembali',
+                                  textCancel: 'Batal',
+                                  textConfirm: 'Keluar',
+                                  buttonColor: Colors.red[400],
+                                  cancelTextColor: Colors.black,
+
+                                  onConfirm: () => Get.offNamed(Routes.LOGIN),
                                 );
                               },
                               child: Container(
