@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/absensi/bindings/absensi_binding.dart';
 import '../modules/absensi/views/absensi_view.dart';
+import '../modules/hasil_absensi/bindings/hasil_absensi_binding.dart';
+import '../modules/hasil_absensi/views/hasil_absensi_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.ABSENSI,
       page: () => const AbsensiView(),
       binding: AbsensiBinding(),
+    ),
+    GetPage(
+      name: _Paths.HASIL_ABSENSI,
+      page: () => const HasilAbsensiView(),
+      binding: HasilAbsensiBinding(),
     ),
   ];
 }

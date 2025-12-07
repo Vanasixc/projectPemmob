@@ -1,4 +1,0 @@
-home_view.dart :
-- Layout menu 4 kotak bisa pakai GridView.count biar lebih rapi daripada 2 Row.
-- Banyak Container(height: 150, width: 150, child: Card(...)) → bisa diringkas.
-- Image.network untuk icon → kalau offline bakal kosong, nanti bisa diganti asset lokal.

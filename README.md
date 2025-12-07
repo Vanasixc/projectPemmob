@@ -1,16 +1,28 @@
-# belajar_getx
+# QRSense
 
-A new Flutter project.
+Project UAS membuat aplikasi absensi mahasiswa dengan QR code. Tetapi saya menambahkan validasi berupa lokasi menggunakan geolocator untuk memastikan mahasiswa berada di area kampus.
 
-## Getting Started
+## ToDo Next (Priority)
+1. Integrasikan dengan API firebase/supabase (ongoing)
+2. Buat reuse widget sendiri agar tidak berulang (ongoing)
+3. Perbaharui UI (ongoing)
 
-This project is a starting point for a Flutter application.
+## ToDo Next (Optional)
+home_view.dart :
+- Layout menu 4 kotak bisa pakai GridView.count biar lebih rapi daripada 2 Row.
+- Image.network untuk icon → kalau offline bakal kosong, nanti bisa diganti asset lokal.
 
-A few resources to get you started if this is your first Flutter project:
+## Need
+Library/Tools :
+- [GetX](https://pub.dev/packages/get)
+- [Get_CLI](https://pub.dev/packages/get_cli)
+- [Geolocator](https://pub.dev/packages/geolocator)
+- [Mobile_Scanner](https://pub.dev/packages/mobile_scanner)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Extention (VScode) :
+- Error Lens
+- GetX Snippet
+- Pubspec Assist
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Update
+- 7-12-25 => Selesai membuat validasi secara statis untuk lokasi menggunakan geolocator dan sudah bisa scan QR Code. Untuk sekarang QR Code dibuat lewat Canva saja, masih belum saya tambahkan fitur untuk membuat QR code sendiri. Isi dari QR code itu sendiri untuk sekarang adalah 'SESSION_xxx"
