@@ -7,6 +7,8 @@ abstract class Routes {
   static const LOGIN = _Paths.LOGIN;
   static const ABSENSI = _Paths.ABSENSI;
   static const HASIL_ABSENSI = _Paths.HASIL_ABSENSI;
+  static const TESTING = _Paths.TESTING;
+  static const ADD_MAHASISWA = _Paths.ADD_MAHASISWA;
 }
 
 abstract class _Paths {
@@ -15,4 +17,6 @@ abstract class _Paths {
   static const LOGIN = '/login';
   static const ABSENSI = '/absensi';
   static const HASIL_ABSENSI = '/hasil-absensi';
+  static const TESTING = '/testing';
+  static const ADD_MAHASISWA = '/add-mahasiswa';
 }

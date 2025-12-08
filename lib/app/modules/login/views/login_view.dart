@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/login_controller.dart';
-import '../../../controllers/auth_controllers.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -18,18 +17,18 @@ class LoginView extends GetView<LoginController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.add, color: Colors.white, size: 30),
+                Icon(Icons.qr_code_2, color: Colors.white, size: 50),
                 Text(
-                  'Absensi',
+                  'QRSense',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: 50,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 90),
+            SizedBox(height: 70),
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -73,10 +72,10 @@ class LoginView extends GetView<LoginController> {
                           ],
                         ),
                         child: TextField(
-                          controller: controller.usernameController,
+                          controller: controller.nimController,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.email),
-                            labelText: 'Username',
+                            labelText: 'NIM',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -127,7 +126,7 @@ class LoginView extends GetView<LoginController> {
                               Colors.amber,
                             ),
                           ),
-                          onPressed: () => controller.isLogin(),
+                          onPressed: () async => controller.isLogin(),
                           child: Text(
                             'Login',
                             style: TextStyle(color: Colors.white, fontSize: 30),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1097001944662",
+    "project_id": "qrsense-418b7",
+    "storage_bucket": "qrsense-418b7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097001944662:android:79a31d8113f16b1b87ddf7",
+        "android_client_info": {
+          "package_name": "com.example.belajar_getx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQIKxo2o_fx3IOisnlPrd5jq6TZr0-rAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

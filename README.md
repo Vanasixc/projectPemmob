@@ -3,9 +3,12 @@
 Project UAS membuat aplikasi absensi mahasiswa dengan QR code. Tetapi saya menambahkan validasi berupa lokasi menggunakan geolocator untuk memastikan mahasiswa berada di area kampus.
 
 ## ToDo Next (Priority)
-1. Integrasikan dengan API firebase/supabase (ongoing)
+1. Integrasikan dengan API firebase/supabase (done)
 2. Buat reuse widget sendiri agar tidak berulang (ongoing)
-3. Perbaharui UI (ongoing)
+3. Perbaharui UI (-)
+4. [Khusus Role Dosen dan Admin]Membuat halaman untuk delete data (otomatis get data dari database) dan show data mahasiswa (bisa pilih berdasarkan semester atau all) (-)
+5. Membedakan isi home dari role mahasiswa dengan Dosen dan Admin (-)
+6. Hanya admin yang bisa akses add dan delete data(-)
 
 ## ToDo Next (Optional)
 home_view.dart :

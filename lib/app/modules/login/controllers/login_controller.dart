@@ -11,7 +11,7 @@ class LoginController extends GetxController {
 
   final count = 0.obs;
   // textfield variable
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController nimController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
@@ -29,12 +29,12 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void isLogin() {
-    String nama = usernameController.text;
+  Future<void> isLogin() async {
+    String nim = nimController.text;
     String pass = passwordController.text;
 
-    if (authC.login(nama, pass)) {
-      Get.offNamed(Routes.HOME);
-    }
+    bool done = await authC.login(nim, pass);
+
+    if(done) Get.offNamed(Routes.HOME);
   }
 }

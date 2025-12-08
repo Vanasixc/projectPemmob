@@ -53,7 +53,7 @@ class HasilAbsensiView extends GetView<HasilAbsensiController> {
               Spacer(),
         
               ElevatedButton(
-                onPressed: () => Get.offNamed(Routes.HOME),
+                onPressed: () => Get.toNamed(Routes.HOME),
                 child: Text(
                   'Home',
                   style: TextStyle(fontSize: 20, color: Colors.red),
