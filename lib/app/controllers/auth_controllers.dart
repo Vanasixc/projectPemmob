@@ -9,8 +9,13 @@ class AuthControllers extends GetxController {
   RxnString docId = RxnString();
 
   Future<bool> login(String nim, String password) async {
-    if (nim.isEmpty || password.isEmpty) {
-      Fluttertoast.showToast(msg: 'NIM atau password tidak boleh kosong');
+    if (nim.isEmpty) {
+      Fluttertoast.showToast(msg: 'NIM tidak boleh kosong');
+      return false;
+    }
+
+    if (password.isEmpty) {
+      Fluttertoast.showToast(msg: 'Password tidak boleh kosong');
       return false;
     }
 

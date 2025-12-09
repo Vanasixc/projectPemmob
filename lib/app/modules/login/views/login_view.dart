@@ -1,3 +1,4 @@
+import 'package:belajar_getx/app/helper/costume_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -52,66 +53,24 @@ class LoginView extends GetView<LoginController> {
                         style: TextStyle(color: Colors.black, fontSize: 35),
                       ),
                       SizedBox(height: 30),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(
-                                0.5,
-                              ),
-                              spreadRadius:
-                                  5,
-                              blurRadius: 5,
-                              offset: Offset(
-                                0,
-                                3,
-                              ),
-                            ),
-                          ],
-                        ),
-                        child: TextField(
-                          controller: controller.nimController,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.email),
-                            labelText: 'NIM',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
+                      CusTextField(
+                        controller: controller.nimController,
+                        label: 'NIM',
+                        isAngka: true,
+                        usePrefixIcon: true,
+                        prefixIcon: Icon(Icons.email),
                       ),
                       SizedBox(height: 30),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(
-                                0.5,
-                              ),
-                              spreadRadius:
-                                  5,
-                              blurRadius: 5,
-                              offset: Offset(
-                                0,
-                                3,
-                              ),
-                            ),
-                          ],
-                        ),
-                        child: TextField(
+                      Obx(
+                        () => CusTextField(
                           controller: controller.passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.password),
-                            labelText: 'Password',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
+                          label: 'Password',
+                          isHidden: controller.isHidden.value,
+                          isPassword: true,
+                          usePrefixIcon: true,
+                          prefixIcon: Icon(Icons.password),
+                          onToggleVisibility: () =>
+                              controller.isHidden.toggle(),
                         ),
                       ),
                       SizedBox(height: 50),

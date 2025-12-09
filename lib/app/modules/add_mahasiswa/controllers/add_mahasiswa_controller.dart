@@ -5,15 +5,13 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class AddMahasiswaController extends GetxController {
-  //TODO: Implement AddMahasiswaController
-
   //Visibility icon
   final RxBool isHidden = true.obs;
 
   //Dropdown
   List<String> listRole = ['Mahasiswa', 'Dosen', 'Admin'];
   List<int> listSemester = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-  RxString selectedRole = ''.obs;
+  RxnString selectedRole = RxnString();
   RxnInt selectedSemester = RxnInt();
 
   //Textfield controller
@@ -23,7 +21,6 @@ class AddMahasiswaController extends GetxController {
   final passwordController = TextEditingController();
   final prodiController = TextEditingController();
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -51,7 +48,7 @@ class AddMahasiswaController extends GetxController {
     final semester = selectedSemester.value;
 
     // cek role
-    if (selectedRole.value.isEmpty) {
+    if (selectedRole.value == null) {
       Fluttertoast.showToast(msg: 'Harap pilih role terlebih dahulu');
       return;
     }
@@ -86,7 +83,7 @@ class AddMahasiswaController extends GetxController {
       password: pass,
       prodi: prodi,
       semester: semester,
-      role: selectedRole.value,
+      role: selectedRole.value!,
     );
 
     try {
@@ -106,6 +103,7 @@ class AddMahasiswaController extends GetxController {
     passwordController.clear();
     prodiController.clear();
     selectedSemester.value = null;
-    selectedRole.value = '';
+    selectedRole.value = null;
   }
 }
+

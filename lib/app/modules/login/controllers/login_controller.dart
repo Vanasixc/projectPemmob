@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   final authC = Get.put(AuthControllers());
-  //TODO: Implement HomeController
 
-  final count = 0.obs;
+  final RxBool isHidden = true.obs;
+
   // textfield variable
   final TextEditingController nimController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -35,6 +35,6 @@ class LoginController extends GetxController {
 
     bool done = await authC.login(nim, pass);
 
-    if(done) Get.offNamed(Routes.HOME);
+    if (done) Get.offNamed(Routes.HOME);
   }
 }
