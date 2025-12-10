@@ -1,4 +1,4 @@
-import 'package:belajar_getx/app/models/model_mahasiswa.dart';
+import 'package:belajar_getx/app/data/models/model_mahasiswa.dart';
 import 'package:belajar_getx/app/services/services_mahasiswa.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';

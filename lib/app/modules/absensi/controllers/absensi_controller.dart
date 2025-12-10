@@ -1,13 +1,10 @@
-import 'package:belajar_getx/app/controllers/auth_controllers.dart';
 import 'package:belajar_getx/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../controllers/check_lokasi.dart';
 
 class AbsensiController extends GetxController {
   //TODO: Implement AbsensiController
-  // final authC = Get.find<AuthControllers>();
 
   // koordinat Mipa 2
   final double latMipa2 = -3.4442846676241725;

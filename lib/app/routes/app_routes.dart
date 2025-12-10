@@ -9,6 +9,8 @@ abstract class Routes {
   static const HASIL_ABSENSI = _Paths.HASIL_ABSENSI;
   static const TESTING = _Paths.TESTING;
   static const ADD_MAHASISWA = _Paths.ADD_MAHASISWA;
+  static const LIST_MAHASISWA = _Paths.LIST_MAHASISWA;
+  static const DETAIL_MAHASISWA = _Paths.DETAIL_MAHASISWA;
 }
 
 abstract class _Paths {
@@ -19,4 +21,6 @@ abstract class _Paths {
   static const HASIL_ABSENSI = '/hasil-absensi';
   static const TESTING = '/testing';
   static const ADD_MAHASISWA = '/add-mahasiswa';
+  static const LIST_MAHASISWA = '/list-mahasiswa';
+  static const DETAIL_MAHASISWA = '/detail-mahasiswa';
 }

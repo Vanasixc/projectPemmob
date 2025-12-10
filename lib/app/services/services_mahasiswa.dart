@@ -1,16 +1,16 @@
-import 'package:belajar_getx/app/models/model_mahasiswa.dart';
+import 'package:belajar_getx/app/data/models/model_mahasiswa.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 const String collectionName = "mahasiswa";
 
 class ServicesMahasiswa {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   late final CollectionReference _mahasiswa;
 
   //Constructor
   ServicesMahasiswa() {
-    _mahasiswa = _firestore
+    _mahasiswa = firestore
         .collection(collectionName)
         .withConverter<modelMahasiswa>(
           fromFirestore: (snapshot, _) =>

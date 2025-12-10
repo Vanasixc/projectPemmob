@@ -33,10 +33,8 @@ class AuthControllers extends GetxController {
     passLogin.value = data['password'];
     docId.value = doc.id;
 
-    if (nim != nimLogin.value || password != passLogin.value) {
-      Fluttertoast.showToast(msg: 'NIM atau Password salah');
-      return false;
-    }
+    //TODO : Pengecekkan jika data tidak ada
+    
 
     Fluttertoast.showToast(msg: 'Selamat datang ${namaLogin.value}');
     return true;

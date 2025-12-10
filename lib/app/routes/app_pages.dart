@@ -4,10 +4,14 @@ import '../modules/absensi/bindings/absensi_binding.dart';
 import '../modules/absensi/views/absensi_view.dart';
 import '../modules/add_mahasiswa/bindings/add_mahasiswa_binding.dart';
 import '../modules/add_mahasiswa/views/add_mahasiswa_view.dart';
+import '../modules/detail_mahasiswa/bindings/detail_mahasiswa_binding.dart';
+import '../modules/detail_mahasiswa/views/detail_mahasiswa_view.dart';
 import '../modules/hasil_absensi/bindings/hasil_absensi_binding.dart';
 import '../modules/hasil_absensi/views/hasil_absensi_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/list_mahasiswa/bindings/list_mahasiswa_binding.dart';
+import '../modules/list_mahasiswa/views/list_mahasiswa_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/testing/bindings/testing_binding.dart';
@@ -18,7 +22,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.LIST_MAHASISWA;
 
   static final routes = [
     GetPage(
@@ -50,6 +54,16 @@ class AppPages {
       name: _Paths.ADD_MAHASISWA,
       page: () => const AddMahasiswaView(),
       binding: AddMahasiswaBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIST_MAHASISWA,
+      page: () => const ListMahasiswaView(),
+      binding: ListMahasiswaBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_MAHASISWA,
+      page: () => const DetailMahasiswaView(),
+      binding: DetailMahasiswaBinding(),
     ),
   ];
 }
