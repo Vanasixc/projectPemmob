@@ -26,6 +26,7 @@ Library/Tools :
 - [Get_CLI](https://pub.dev/packages/get_cli)
 - [Geolocator](https://pub.dev/packages/geolocator)
 - [Mobile_Scanner](https://pub.dev/packages/mobile_scanner)
+- [cloud_firestore](https://pub.dev/packages/cloud_firestore)
 
 Extention (VScode) :
 - Error Lens
