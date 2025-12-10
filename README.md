@@ -36,4 +36,4 @@ Extention (VScode) :
 ## Update
 - 7-12-25 => Selesai membuat validasi secara statis untuk lokasi menggunakan geolocator dan sudah bisa scan QR Code. Untuk sekarang QR Code dibuat lewat Canva saja, masih belum saya tambahkan fitur untuk membuat QR code sendiri. Isi dari QR code itu sendiri untuk sekarang adalah 'SESSION_xxx"
 - 8-12-25 => Selesai menyambungkan ke Firebase project QRSense. aku juga membuat page testing buat ngetes dan add data. desain masih simpel tapi untuk saat ini sudah berfungsi dengan baik. Reference : [Kuldi_Project_Firebase_Eps4](https://youtu.be/E3eZ_AqVbn4?si=5TCi9iq7VsjfMWQC)
-- 10-12-25 => Selesai membuat untuk stream di list mahasiswa. next aku ingin coba membuat page detail berdasarkan mahasiswanya dan bisa ngedit si mahasiswa agar service update bisa digunakan. semoga untuk image juga bisa selesai besok
+- 10-12-25 => Selesai membuat untuk stream di list mahasiswa. next aku ingin coba membuat page detail berdasarkan mahasiswanya dan bisa ngedit si mahasiswa agar service update bisa digunakan. semoga untuk image juga bisa selesai besok. Reference : [Kuldi_Project_All_Product](https://www.youtube.com/watch?v=GIxNwCeD5TM)
