@@ -16,11 +16,13 @@ class CusTextField extends StatelessWidget {
   final bool usePrefixIcon;
   final Icon prefixIcon;
   final bool readOnly;
+  final bool boldLabel;
 
   const CusTextField({
     super.key,
     required this.controller,
     required this.label,
+    this.boldLabel = false,
     this.prefixIcon = const Icon(Icons.add),
     this.usePrefixIcon = false,
     this.isPassword = false,
@@ -47,13 +49,16 @@ class CusTextField extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
-        readOnly: readOnly,
+        enabled: !readOnly,
         obscureText: isPassword ? isHidden : false,
         inputFormatters: isAngka
             ? [FilteringTextInputFormatter.digitsOnly]
             : [],
         decoration: InputDecoration(
           labelText: label,
+          labelStyle: boldLabel
+              ? TextStyle(color: Colors.black, fontWeight: FontWeight.bold)
+              : null,
           prefixIcon: usePrefixIcon ? prefixIcon : null,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           suffixIcon: isPassword

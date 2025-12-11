@@ -77,7 +77,7 @@ class ListMahasiswaView extends GetView<ListMahasiswaController> {
                       ],
                     ),
                   ),
-                  onTap: () => Get.toNamed(Routes.DETAIL_MAHASISWA),
+                  onTap: () => Get.toNamed(Routes.DETAIL_MAHASISWA, arguments: mhs),
                 ),
               );
             },

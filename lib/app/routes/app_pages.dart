@@ -22,7 +22,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DETAIL_MAHASISWA ;
+  static const INITIAL = Routes.LIST_MAHASISWA;
 
   static final routes = [
     GetPage(

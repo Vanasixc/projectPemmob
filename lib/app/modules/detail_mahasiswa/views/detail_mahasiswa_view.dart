@@ -15,90 +15,173 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
         centerTitle: true,
         backgroundColor: Colors.amber,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Image Profile
-            Container(
-              margin: EdgeInsets.all(15),
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade400,
-                borderRadius: BorderRadius.circular(100),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Image Profile
+              Container(
+                margin: EdgeInsets.all(15),
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade400,
+                  borderRadius: BorderRadius.circular(100),
+                ),
               ),
-            ),
-            SizedBox(height: 40),
-            // Data diri mahasiswa
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 450,
-                    height: 100,
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade400,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Nama',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+              SizedBox(height: 40),
+              // Data diri mahasiswa
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 20,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade400,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20),
+                      Text(
+                        'Nama',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
-                        SizedBox(height: 5),
-                        CusTextField(
-                          controller: controller.namaController,
-                          label: 'Nama',
-                          readOnly: true,
+                      ),
+                      SizedBox(height: 5),
+                      CusTextField(
+                        controller: controller.namaController,
+                        label: '${controller.mhs.nama}',
+                        readOnly: true,
+                        boldLabel: true,
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'NIM',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 5),
+                      CusTextField(
+                        controller: controller.namaController,
+                        label: '${controller.mhs.nim}',
+                        readOnly: true,
+                        boldLabel: true,
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Fakultas',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      CusTextField(
+                        controller: controller.namaController,
+                        label: '${controller.mhs.fakultas}',
+                        readOnly: true,
+                        boldLabel: true,
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Prodi',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      CusTextField(
+                        controller: controller.namaController,
+                        label: '${controller.mhs.prodi}',
+                        readOnly: true,
+                        boldLabel: true,
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Semester',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      CusTextField(
+                        controller: controller.namaController,
+                        label: '${controller.mhs.semester}',
+                        readOnly: true,
+                        boldLabel: true,
+                      ),
+                      SizedBox(height: 20),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.only(bottom: 50),
-              height: 50,
-              width: 170,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FloatingActionButton(
-                    onPressed: () {},
-                    backgroundColor: Colors.red,
-                    elevation: 4,
-                    child: Text(
-                      'Delete Mahasiswa',
-                      style: TextStyle(color: Colors.white),
+              SizedBox(height: 20),
+              Container(
+                margin: const EdgeInsets.only(bottom: 50),
+                height: 50,
+                width: 200,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.defaultDialog(
+                          title:
+                              'Apakah anda yakin ingin menghapus data: \n${controller.mhs.nama}\n${controller.mhs.nim}?',
+                              textCancel: 'Batal',
+                              textConfirm: 'Hapus',
+                              buttonColor: Colors.red[400],
+                              cancelTextColor: Colors.black,
+                              middleText: '',
+
+                              // confirm: () => controller.deleteMahasiswa(controller.mhs.nim),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                      ),
+                      child: Text(
+                        'Delete',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 20),
-                  FloatingActionButton(
-                    onPressed: () {},
-                    backgroundColor: Colors.blue,
-                    elevation: 4,
-                    child: Text(
-                      'Edit Data Mahasiswa',
-                      style: TextStyle(color: Colors.white),
+                    SizedBox(width: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        'Edit',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
