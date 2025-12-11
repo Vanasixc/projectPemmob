@@ -1,9 +1,11 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class DetailMahasiswaController extends GetxController {
   //TODO: Implement DetailMahasiswaController
 
-  final count = 0.obs;
+  //Textfield Controller
+  final namaController = TextEditingController();
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +20,4 @@ class DetailMahasiswaController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

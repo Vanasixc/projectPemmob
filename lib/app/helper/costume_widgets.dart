@@ -15,6 +15,7 @@ class CusTextField extends StatelessWidget {
   final VoidCallback? onToggleVisibility;
   final bool usePrefixIcon;
   final Icon prefixIcon;
+  final bool readOnly;
 
   const CusTextField({
     super.key,
@@ -25,6 +26,7 @@ class CusTextField extends StatelessWidget {
     this.isPassword = false,
     this.isAngka = false,
     this.isHidden = false,
+    this.readOnly = false,
     this.onToggleVisibility,
   });
 
@@ -45,6 +47,7 @@ class CusTextField extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
+        readOnly: readOnly,
         obscureText: isPassword ? isHidden : false,
         inputFormatters: isAngka
             ? [FilteringTextInputFormatter.digitsOnly]
