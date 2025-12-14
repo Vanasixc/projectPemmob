@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:belajar_getx/app/data/models/model_mahasiswa.dart';
 import 'package:belajar_getx/app/routes/app_pages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,8 +31,10 @@ class ListMahasiswaView extends GetView<ListMahasiswaController> {
 
           List<modelMahasiswa> listMhs = [];
           for (var element in snapMhs.data!.docs) {
-            if(element.data()['role'] != 'Mahasiswa') continue;
-            listMhs.add(modelMahasiswa.fromJson(element.data()));
+            if (element.data()['role'] != 'Mahasiswa') continue;
+            listMhs.add(
+              modelMahasiswa.fromJson(element.data(), uId: element.id),
+            );
           }
           return ListView.builder(
             itemCount: listMhs.length,
@@ -66,18 +70,28 @@ class ListMahasiswaView extends GetView<ListMahasiswaController> {
                             ],
                           ),
                         ),
-                        Container(
-                          height: 90,
-                          width: 90,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.black),
-                          ),
-                        ),
+                        Obx(() {
+                          if (controller.photoPath.value.isNotEmpty) {
+                            return CircleAvatar(
+                              radius: 60,
+                              backgroundImage: FileImage(
+                                File(controller.photoPath.value),
+                              ),
+                            );
+                          } else {
+                            return CircleAvatar(
+                              radius: 60,
+                              backgroundImage: AssetImage(
+                                'assets/default_profile.jpg',
+                              ),
+                            );
+                          }
+                        }),
                       ],
                     ),
                   ),
-                  onTap: () => Get.toNamed(Routes.DETAIL_MAHASISWA, arguments: mhs),
+                  onTap: () =>
+                      Get.toNamed(Routes.DETAIL_MAHASISWA, arguments: mhs),
                 ),
               );
             },

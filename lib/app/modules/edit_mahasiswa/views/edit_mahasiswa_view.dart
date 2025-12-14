@@ -7,15 +7,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/detail_mahasiswa_controller.dart';
+import '../controllers/edit_mahasiswa_controller.dart';
 
-class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
-  const DetailMahasiswaView({super.key});
+class EditMahasiswaView extends GetView<EditMahasiswaController> {
+  const EditMahasiswaView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail Mahasiswa'),
+        title: const Text('Edit Mahasiswa'),
         centerTitle: true,
         backgroundColor: Colors.amber,
       ),
@@ -27,21 +27,38 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Image Profile
-              Obx(() {
-                if (controller.photoPath.value.isNotEmpty) {
-                  return CircleAvatar(
-                    radius: 60,
-                    backgroundImage: FileImage(
-                      File(controller.photoPath.value),
+              Column(
+                children: [
+                  Obx(() {
+                    if (controller.photoPath.value.isNotEmpty) {
+                      return CircleAvatar(
+                        radius: 60,
+                        backgroundImage: FileImage(
+                          File(controller.photoPath.value),
+                        ),
+                      );
+                    } else {
+                      return CircleAvatar(
+                        radius: 60,
+                        backgroundImage: AssetImage(
+                          'assets/default_profile.jpg',
+                        ),
+                      );
+                    }
+                  }),
+                  const SizedBox(height: 10),
+                  TextButton.icon(
+                    onPressed: () {
+                      controller.choiceImage(controller.mhs.nim);
+                    },
+                    icon: const Icon(Icons.photo, size: 20),
+                    label: const Text(
+                      'Ganti Foto',
+                      style: TextStyle(fontSize: 20),
                     ),
-                  );
-                } else {
-                  return CircleAvatar(
-                    radius: 60,
-                    backgroundImage: AssetImage('assets/default_profile.jpg'),
-                  );
-                }
-              }),
+                  ),
+                ],
+              ),
 
               SizedBox(height: 40),
               // Data diri mahasiswa
@@ -70,12 +87,7 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      CusTextField(
-                        controller: controller.namaController,
-                        label: '${controller.mhs.nama}',
-                        readOnly: true,
-                        boldLabel: true,
-                      ),
+                      CusTextField(controller: controller.namaController),
                       SizedBox(height: 20),
                       Text(
                         'NIM',
@@ -86,12 +98,7 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      CusTextField(
-                        controller: controller.namaController,
-                        label: '${controller.mhs.nim}',
-                        readOnly: true,
-                        boldLabel: true,
-                      ),
+                      CusTextField(controller: controller.nimController),
                       SizedBox(height: 20),
                       Text(
                         'Fakultas',
@@ -102,11 +109,19 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      CusTextField(
-                        controller: controller.namaController,
-                        label: '${controller.mhs.fakultas}',
-                        readOnly: true,
-                        boldLabel: true,
+                      Obx(
+                        () => CusDropDown<String>(
+                          hint: 'Pilih Fakultas',
+                          items: controller.dataUniv.listFakultas,
+                          selectedValue:
+                              controller.dataUniv.selectedFakultas.value.isEmpty
+                              ? null
+                              : controller.dataUniv.selectedFakultas.value,
+                          onChanged: (value) {
+                            controller.dataUniv.selectedFakultas.value = value!;
+                            controller.dataUniv.selectedProdi.value = "";
+                          },
+                        ),
                       ),
                       SizedBox(height: 20),
                       Text(
@@ -118,12 +133,23 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      CusTextField(
-                        controller: controller.namaController,
-                        label: '${controller.mhs.prodi}',
-                        readOnly: true,
-                        boldLabel: true,
+                      Obx(
+                        () => CusDropDown<String>(
+                          hint:
+                              controller.dataUniv.selectedFakultas.value.isEmpty
+                              ? 'Pilih Fakultas Terlebih Dahulu'
+                              : 'Pilih Prodi',
+                          items: controller.dataUniv.currentProdi,
+                          selectedValue:
+                              controller.dataUniv.selectedProdi.value.isEmpty
+                              ? null
+                              : controller.dataUniv.selectedProdi.value,
+                          onChanged: (value) {
+                            controller.dataUniv.selectedProdi.value = value!;
+                          },
+                        ),
                       ),
+
                       SizedBox(height: 20),
                       Text(
                         'Semester',
@@ -134,11 +160,16 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      CusTextField(
-                        controller: controller.namaController,
-                        label: '${controller.mhs.semester}',
-                        readOnly: true,
-                        boldLabel: true,
+                      Obx(
+                        () => CusDropDown<int>(
+                          hint: 'Pilih Semester',
+                          items: controller.dataUniv.listSemester,
+                          selectedValue:
+                              controller.dataUniv.selectedSemester.value,
+                          onChanged: (value) {
+                            controller.dataUniv.selectedSemester.value = value;
+                          },
+                        ),
                       ),
                       SizedBox(height: 20),
                     ],
@@ -151,44 +182,24 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                 height: 50,
                 width: 200,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        Get.defaultDialog(
-                          title:
-                              'Apakah anda yakin ingin menghapus data: \n${controller.mhs.nama}\n${controller.mhs.nim}?',
-                          textCancel: 'Batal',
-                          textConfirm: 'Hapus',
-                          buttonColor: Colors.red[400],
-                          cancelTextColor: Colors.black,
-                          middleText: '',
-
-                          onConfirm: () {
-                            controller.deleteMahasiswa();
-                            Fluttertoast.showToast(msg: 'Data telah dihapus');
-                          },
-                        );
+                      onPressed: () async {
+                        try {
+                          await controller.updateMahasiswa();
+                          Get.offNamed(Routes.LIST_MAHASISWA);
+                          Fluttertoast.showToast(msg: 'Update Berhasil');
+                        } catch (e) {
+                          Get.snackbar('Gagal Update', e.toString());
+                        }
                       },
+
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.purple[700],
                       ),
                       child: Text(
-                        'Delete',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(width: 20),
-                    ElevatedButton(
-                      onPressed: () => Get.toNamed(
-                        Routes.EDIT_MAHASISWA,
-                        arguments: controller.mhs,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                      ),
-                      child: Text(
-                        'Edit',
+                        'Update',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

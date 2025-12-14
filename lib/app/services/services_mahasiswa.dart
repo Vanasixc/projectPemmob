@@ -1,5 +1,6 @@
 import 'package:belajar_getx/app/data/models/model_mahasiswa.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 const String collectionName = "mahasiswa";
 
@@ -14,7 +15,7 @@ class ServicesMahasiswa {
         .collection(collectionName)
         .withConverter<modelMahasiswa>(
           fromFirestore: (snapshot, _) =>
-              modelMahasiswa.fromJson(snapshot.data()!),
+              modelMahasiswa.fromJson(snapshot.data()!, uId: snapshot.id),
           toFirestore: (mahasiswa, _) => mahasiswa.toJson(),
         );
   }
@@ -26,12 +27,24 @@ class ServicesMahasiswa {
   }
 
   //Delete data
-  Future<void> deleteMahasiswa(String nim) async {
-    await _mahasiswa.doc(nim).delete();
+
+  Future<void> deleteMahasiswa(modelMahasiswa mahasiswa) async {
+    if (mahasiswa.uId != null) {
+      await _mahasiswa.doc(mahasiswa.uId).delete();
+    } else {
+      Fluttertoast.showToast(msg: 'Data tidak ada');
+    }
   }
 
   //Update data
   Future<void> updateMahasiswa(modelMahasiswa mahasiswa) async {
-    await _mahasiswa.doc(mahasiswa.nim).update(mahasiswa.toJson());
+    if (mahasiswa.uId == null) {
+      throw Exception('Mahasiswa id (docId) null, tidak bisa update');
+    }
+
+    await firestore
+        .collection(collectionName)
+        .doc(mahasiswa.uId)
+        .update(mahasiswa.toJson());
   }
 }

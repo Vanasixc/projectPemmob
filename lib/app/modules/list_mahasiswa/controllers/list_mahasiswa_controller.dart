@@ -1,3 +1,4 @@
+import 'package:belajar_getx/app/controllers/profile_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import '../../../services/services_mahasiswa.dart';
@@ -8,6 +9,10 @@ class ListMahasiswaController extends GetxController {
   Stream<QuerySnapshot<Map<String, dynamic>>> snapMhs() async* {
     yield* ServicesMahasiswa().firestore.collection('mahasiswa').snapshots();
   }
+
+    //handler profile image
+  final profileImage = Get.find<ProfileController>();
+  RxString photoPath = ''.obs;
 
   @override
   void onInit() {

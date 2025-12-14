@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../controllers/add_mahasiswa_controller.dart';
+import '../../../data/data_univ.dart';
 
 class AddMahasiswaBinding extends Bindings {
   @override
@@ -8,5 +9,6 @@ class AddMahasiswaBinding extends Bindings {
     Get.lazyPut<AddMahasiswaController>(
       () => AddMahasiswaController(),
     );
+    Get.put<DataUniv>(DataUniv());
   }
 }

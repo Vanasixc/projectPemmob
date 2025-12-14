@@ -58,24 +58,47 @@ class AddMahasiswaView extends GetView<AddMahasiswaController> {
                   ),
                 ),
                 SizedBox(height: 20),
-                CusTextField(
-                  controller: controller.fakultasController,
-                  label: 'Fakultas',
+                Obx(
+                  () => CusDropDown<String>(
+                    label: 'Fakultas',
+                    hint: 'Pilih Fakultas',
+                    items: controller.dataUniv.listFakultas,
+                    selectedValue: controller.dataUniv.selectedFakultas.value.isEmpty
+                        ? null
+                        : controller.dataUniv.selectedFakultas.value,
+                    onChanged: (value) {
+                      controller.dataUniv.selectedFakultas.value = value!;
+                      controller.dataUniv.selectedProdi.value = "";
+                    },
+                  ),
                 ),
+
                 SizedBox(height: 20),
-                CusTextField(
-                  controller: controller.prodiController,
-                  label: 'Prodi',
+                Obx(
+                  () => CusDropDown<String>(
+                    label: 'Prodi',
+                    hint: controller.dataUniv.selectedFakultas.value.isEmpty
+                        ? 'Pilih Fakultas'
+                        : 'Pilih Prodi',
+                    items: controller.dataUniv.currentProdi,
+                    selectedValue: controller.dataUniv.selectedProdi.value.isEmpty
+                        ? null
+                        : controller.dataUniv.selectedProdi.value,
+                    onChanged: (value) {
+                      controller.dataUniv.selectedProdi.value = value!;
+                    },
+                  ),
                 ),
+
                 SizedBox(height: 20),
                 Obx(
                   () => CusDropDown(
                     label: 'Semester',
                     hint: 'Pilih Semester',
-                    items: controller.listSemester,
-                    selectedValue: controller.selectedSemester.value,
+                    items: controller.dataUniv.listSemester,
+                    selectedValue: controller.dataUniv.selectedSemester.value,
                     onChanged: (value) {
-                      controller.selectedSemester.value = value;
+                      controller.dataUniv.selectedSemester.value = value;
                     },
                   ),
                 ),
@@ -84,10 +107,10 @@ class AddMahasiswaView extends GetView<AddMahasiswaController> {
                   () => CusDropDown(
                     label: 'Role',
                     hint: 'Pilih Role',
-                    items: controller.listRole,
-                    selectedValue: controller.selectedRole.value,
+                    items: controller.dataUniv.listRole,
+                    selectedValue: controller.dataUniv.selectedRole.value,
                     onChanged: (value) {
-                      controller.selectedRole.value = value;
+                      controller.dataUniv.selectedRole.value = value;
                     },
                   ),
                 ),

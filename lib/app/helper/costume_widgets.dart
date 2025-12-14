@@ -21,7 +21,7 @@ class CusTextField extends StatelessWidget {
   const CusTextField({
     super.key,
     required this.controller,
-    required this.label,
+    this.label = '',
     this.boldLabel = false,
     this.prefixIcon = const Icon(Icons.add),
     this.usePrefixIcon = false,
@@ -85,7 +85,7 @@ class CusDropDown<T> extends StatelessWidget {
 
   const CusDropDown({
     super.key,
-    required this.label,
+    this.label = '',
     required this.hint,
     this.isExpanded = true,
     this.selectedValue,

@@ -19,6 +19,7 @@ class AuthControllers extends GetxController {
       return false;
     }
 
+    // get data by NIM
     final get = await FirebaseFirestore.instance
         .collection('mahasiswa')
         .where('NIM', isEqualTo: nim)
@@ -32,9 +33,6 @@ class AuthControllers extends GetxController {
     namaLogin.value = data['nama'];
     passLogin.value = data['password'];
     docId.value = doc.id;
-
-    //TODO : Pengecekkan jika data tidak ada
-    
 
     Fluttertoast.showToast(msg: 'Selamat datang ${namaLogin.value}');
     return true;

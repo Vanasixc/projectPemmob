@@ -3,16 +3,14 @@ import 'package:belajar_getx/app/services/services_mahasiswa.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../../../data/data_univ.dart';
 
 class AddMahasiswaController extends GetxController {
   //Visibility icon
   final RxBool isHidden = true.obs;
 
-  //Dropdown
-  List<String> listRole = ['Mahasiswa', 'Dosen', 'Admin'];
-  List<int> listSemester = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-  RxnString selectedRole = RxnString();
-  RxnInt selectedSemester = RxnInt();
+  //Ambil data dari DataUniv
+  final dataUniv = Get.find<DataUniv>();
 
   //Textfield controller
   final nimController = TextEditingController();
@@ -43,12 +41,12 @@ class AddMahasiswaController extends GetxController {
     final nama = namaController.text.trim();
     final nim = nimController.text.trim();
     final pass = passwordController.text.trim();
-    final fakultas = fakultasController.text.trim();
-    final prodi = prodiController.text.trim();
-    final semester = selectedSemester.value;
+    final fakultas = dataUniv.selectedFakultas.value;
+    final prodi = dataUniv.selectedProdi.value;
+    final semester = dataUniv.selectedSemester.value;
 
     // cek role
-    if (selectedRole.value == null) {
+    if (dataUniv.selectedRole.value == null) {
       Fluttertoast.showToast(msg: 'Harap pilih role terlebih dahulu');
       return;
     }
@@ -83,7 +81,8 @@ class AddMahasiswaController extends GetxController {
       password: pass,
       prodi: prodi,
       semester: semester,
-      role: selectedRole.value!,
+      role: dataUniv.selectedRole.value!,
+      profilePath: '',
     );
 
     try {
@@ -97,13 +96,12 @@ class AddMahasiswaController extends GetxController {
 
   //Untuk clear form
   void clearForm() {
-    nimController.clear();
-    fakultasController.clear();
     namaController.clear();
+    nimController.clear();
     passwordController.clear();
-    prodiController.clear();
-    selectedSemester.value = null;
-    selectedRole.value = null;
+    dataUniv.selectedSemester.value = null;
+    dataUniv.selectedRole.value = null;
+    dataUniv.selectedFakultas.value = '';
+    dataUniv.selectedProdi.value = '';
   }
 }
-

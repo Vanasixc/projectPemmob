@@ -16,7 +16,6 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-
     final authC = Get.find<AuthControllers>();
 
     return Scaffold(
@@ -96,7 +95,15 @@ class HomeView extends GetView<HomeController> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(Routes.ABSENSI);
+                                      if (snapshot.data!.get('role') ==
+                                          'Dosen') {
+                                        // Get.toNamed(Routes.BUAT_PRESENSI);
+                                      } else if (snapshot.data!.get('role') ==
+                                          'Admin') {
+                                        Get.toNamed(Routes.LIST_MAHASISWA);
+                                      } else {
+                                        Get.toNamed(Routes.ABSENSI);
+                                      }
                                     },
                                     child: Container(
                                       height: 150,
@@ -113,7 +120,15 @@ class HomeView extends GetView<HomeController> {
                                               scale: 1.6,
                                             ),
                                             Text(
-                                              'Absensi',
+                                              snapshot.data!.get('role') ==
+                                                      'Dosen'
+                                                  ? 'Presensi'
+                                                  : snapshot.data!.get(
+                                                          'role',
+                                                        ) ==
+                                                        'Admin'
+                                                  ? 'List Mahasiswa'
+                                                  : 'Absensi',
                                               style: TextStyle(fontSize: 16),
                                             ),
                                           ],

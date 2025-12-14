@@ -1,6 +1,5 @@
 import 'package:belajar_getx/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../../controllers/auth_controllers.dart';
 
 import 'package:get/get.dart';
