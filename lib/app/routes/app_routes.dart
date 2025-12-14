@@ -13,6 +13,7 @@ abstract class Routes {
   static const DETAIL_MAHASISWA = _Paths.DETAIL_MAHASISWA;
   static const EDIT_MAHASISWA = _Paths.EDIT_MAHASISWA;
   static const BUAT_PRESENSI = _Paths.BUAT_PRESENSI;
+  static const HASIL_QR = _Paths.HASIL_QR;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const DETAIL_MAHASISWA = '/detail-mahasiswa';
   static const EDIT_MAHASISWA = '/edit-mahasiswa';
   static const BUAT_PRESENSI = '/buat-presensi';
+  static const HASIL_QR = '/hasil-qr';
 }

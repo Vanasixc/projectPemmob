@@ -1,9 +1,5 @@
-import 'dart:math';
-
 import 'package:belajar_getx/app/helper/costume_widgets.dart';
-import 'package:belajar_getx/app/helper/custome_class.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 

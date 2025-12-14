@@ -12,6 +12,8 @@ import '../modules/edit_mahasiswa/bindings/edit_mahasiswa_binding.dart';
 import '../modules/edit_mahasiswa/views/edit_mahasiswa_view.dart';
 import '../modules/hasil_absensi/bindings/hasil_absensi_binding.dart';
 import '../modules/hasil_absensi/views/hasil_absensi_view.dart';
+import '../modules/hasil_qr/bindings/hasil_qr_binding.dart';
+import '../modules/hasil_qr/views/hasil_qr_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/list_mahasiswa/bindings/list_mahasiswa_binding.dart';
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.BUAT_PRESENSI,
       page: () => const BuatPresensiView(),
       binding: BuatPresensiBinding(),
+    ),
+    GetPage(
+      name: _Paths.HASIL_QR,
+      page: () => const HasilQrView(),
+      binding: HasilQrBinding(),
     ),
   ];
 }
