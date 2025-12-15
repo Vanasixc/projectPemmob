@@ -9,7 +9,15 @@ class HasilQrView extends GetView<HasilQrController> {
   @override
   Widget build(BuildContext context) {
     final args = Get.arguments as Map<String, dynamic>;
-    final token = args['token'];
+    final sessionId = args['sessionId']?.toString();
+
+    if (sessionId == null || sessionId.isEmpty) {
+      return const Scaffold(
+        body: Center(child: Text('sessionId tidak ditemukan')),
+      );
+    }
+
+    final token = 'SESSION_$sessionId';
 
     return Scaffold(
       appBar: AppBar(
@@ -31,10 +39,7 @@ class HasilQrView extends GetView<HasilQrController> {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {
-                  // nanti bisa screenshot / share
-                  Get.back();
-                },
+                onPressed: () => Get.back(),
                 child: const Text('Simpan QR'),
               ),
             ],

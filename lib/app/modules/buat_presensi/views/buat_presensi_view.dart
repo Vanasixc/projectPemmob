@@ -1,3 +1,4 @@
+import 'package:belajar_getx/app/controllers/auth_controllers.dart';
 import 'package:belajar_getx/app/helper/costume_widgets.dart';
 import 'package:belajar_getx/app/modules/buat_presensi/controllers/buat_presensi_controller.dart';
 import 'package:flutter/material.dart';
@@ -54,20 +55,6 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
                     const SizedBox(height: 20),
 
                     const Text(
-                      'Kelas',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    CusTextField(
-                      controller: controller.kelasController,
-                      label: 'Contoh: 2.3.1',
-                    ),
-                    const SizedBox(height: 20),
-
-                    const Text(
                       'Pertemuan',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -80,6 +67,101 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
                       isAngka: true,
                       label: 'Pertemuan ke-',
                     ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Waktu Mulai',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+
+                    const SizedBox(height: 5),
+                    Center(
+                      child: Obx(
+                        () => ElevatedButton(
+                          onPressed: () => controller.pickStart(context),
+                          child: Text(
+                            controller.startAt.value == null
+                                ? 'Pilih waktu mulai'
+                                : controller.startAt.value.toString(),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    const Text(
+                      'Waktu Berakhir',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    Center(
+                      child: Obx(
+                        () => ElevatedButton(
+                          onPressed: () => controller.pickEnd(context),
+                          child: Text(
+                            controller.endAt.value == null
+                                ? 'Pilih waktu berakhir'
+                                : controller.endAt.value.toString(),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Obx(
+                        () => ElevatedButton.icon(
+                          onPressed: controller.loadingLokasi.value
+                              ? null
+                              : controller.ambilLokasiSekarang,
+                          icon: const Icon(Icons.my_location),
+                          label: const Text('Ambil Lokasi Sekarang'),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    const Text(
+                      'Latitude',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    CusTextField(
+                      controller: controller.latController,
+                      readOnly: true,
+                      boldLabel: true,
+                    ),
+
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Longitude',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    CusTextField(
+                      controller: controller.lngController,
+                      readOnly: true,
+                      boldLabel: true,
+                    ),
+
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Radius (meter)',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    Obx(
+                      () => CusDropDown<int>(
+                        hint: 'Pilih Radius',
+                        items: controller.radiusOptions,
+                        selectedValue: controller.selectedRadius.value,
+                        onChanged: (val) {
+                          if (val != null)
+                            controller.selectedRadius.value = val;
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -89,19 +171,11 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    controller.createPresensi();
+                    controller.createPresensi(
+                      Get.find<AuthControllers>().docId.value!, // id dosen
+                    );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple[700],
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 12,
-                    ),
-                  ),
-                  child: const Text(
-                    'Create Presensi',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
+                  child: const Text('Create Presensi'),
                 ),
               ),
             ],

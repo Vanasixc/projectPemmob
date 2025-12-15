@@ -95,12 +95,10 @@ class HomeView extends GetView<HomeController> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
+                                      // Ganti
                                       if (snapshot.data!.get('role') ==
-                                          'Dosen') {
-                                        // Get.toNamed(Routes.BUAT_PRESENSI);
-                                      } else if (snapshot.data!.get('role') ==
                                           'Admin') {
-                                        Get.toNamed(Routes.LIST_MAHASISWA);
+                                        Get.toNamed(Routes.BUAT_PRESENSI);
                                       } else {
                                         Get.toNamed(Routes.ABSENSI);
                                       }
@@ -120,14 +118,10 @@ class HomeView extends GetView<HomeController> {
                                               scale: 1.6,
                                             ),
                                             Text(
+                                              // ganti
                                               snapshot.data!.get('role') ==
-                                                      'Dosen'
-                                                  ? 'Presensi'
-                                                  : snapshot.data!.get(
-                                                          'role',
-                                                        ) ==
-                                                        'Admin'
-                                                  ? 'List Mahasiswa'
+                                                      'Admin'
+                                                  ? 'Buat Presensi'
                                                   : 'Absensi',
                                               style: TextStyle(fontSize: 16),
                                             ),
@@ -139,6 +133,10 @@ class HomeView extends GetView<HomeController> {
                                   SizedBox(width: 10),
                                   GestureDetector(
                                     onTap: () {
+                                      if (snapshot.data!.get('role') ==
+                                          'Admin') {
+                                        Get.toNamed(Routes.LIST_MAHASISWA);
+                                      }
                                       Fluttertoast.showToast(
                                         msg: 'Fitur ini masih dikembangkan',
                                       );
@@ -158,7 +156,10 @@ class HomeView extends GetView<HomeController> {
                                               scale: 1.6,
                                             ),
                                             Text(
-                                              'Perkuliahan',
+                                              snapshot.data!.get('role') ==
+                                                      'Admin'
+                                                  ? 'List Mahasiswa'
+                                                  : 'Perkuliahan',
                                               style: TextStyle(fontSize: 16),
                                               textAlign: TextAlign.center,
                                             ),

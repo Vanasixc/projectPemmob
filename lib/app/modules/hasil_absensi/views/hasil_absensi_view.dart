@@ -40,6 +40,7 @@ class HasilAbsensiView extends GetView<HasilAbsensiController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text('Session: ${controller.sessionId}'),
                       Text('Mata Kuliah: ${controller.mataKuliah}'),
                       Text('Pertemuan: ${controller.pertemuan.toString()}'),
                       Text('Waktu: ${controller.waktu}'),
@@ -49,15 +50,12 @@ class HasilAbsensiView extends GetView<HasilAbsensiController> {
                   ),
                 ),
               ),
-        
+
               Spacer(),
-        
+
               ElevatedButton(
-                onPressed: () => Get.toNamed(Routes.HOME),
-                child: Text(
-                  'Home',
-                  style: TextStyle(fontSize: 20, color: Colors.red),
-                ),
+                onPressed: () => Get.offAllNamed(Routes.HOME),
+                child: const Text('Home', style: TextStyle(fontSize: 20)),
               ),
             ],
           ),

@@ -14,6 +14,8 @@ abstract class Routes {
   static const EDIT_MAHASISWA = _Paths.EDIT_MAHASISWA;
   static const BUAT_PRESENSI = _Paths.BUAT_PRESENSI;
   static const HASIL_QR = _Paths.HASIL_QR;
+  static const ADD_USER = _Paths.ADD_USER;
+  static const ADD_DOSEN = _Paths.ADD_DOSEN;
 }
 
 abstract class _Paths {
@@ -29,4 +31,6 @@ abstract class _Paths {
   static const EDIT_MAHASISWA = '/edit-mahasiswa';
   static const BUAT_PRESENSI = '/buat-presensi';
   static const HASIL_QR = '/hasil-qr';
+  static const ADD_USER = '/add-user';
+  static const ADD_DOSEN = '/add-dosen';
 }

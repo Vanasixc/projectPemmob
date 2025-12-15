@@ -1,9 +1,14 @@
+import 'package:belajar_getx/app/helper/start_end_presensi.dart';
 import 'package:belajar_getx/app/routes/app_pages.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class BuatPresensiController extends GetxController {
-  // dummy dulu, nanti bisa dari Firestore
+  final firestore = FirebaseFirestore.instance;
+
+  // Mata kuliah (sementara hardcode / nanti dari Firestore)
   List<String> listMataKuliah = [
     'IF204 - Pemrograman Mobile',
     'IF201 - Basis Data',
@@ -11,38 +16,108 @@ class BuatPresensiController extends GetxController {
 
   RxString selectedMataKuliah = ''.obs;
 
-  final kelasController = TextEditingController();
   final pertemuanController = TextEditingController();
+  final latController = TextEditingController();
+  final lngController = TextEditingController();
 
-  void createPresensi() {
-    if (selectedMataKuliah.value.isEmpty ||
-        kelasController.text.isEmpty ||
-        pertemuanController.text.isEmpty) {
-      Get.snackbar('Gagal', 'Semua field wajib diisi');
+  final List<int> radiusOptions = [10, 50, 100, 200, 500, 1000];
+  RxInt selectedRadius = 100.obs;
+
+  RxBool loadingLokasi = false.obs;
+
+  Rxn<DateTime> startAt = Rxn<DateTime>();
+  Rxn<DateTime> endAt = Rxn<DateTime>();
+
+  Future<void> pickStart(BuildContext context) async {
+    final picked = await pickDateTime(context, initial: DateTime.now());
+    if (picked == null) return;
+    startAt.value = picked;
+
+    // opsional: reset endAt kalau endAt jadi invalid
+    if (endAt.value != null && !endAt.value!.isAfter(picked)) {
+      endAt.value = null;
+    }
+  }
+
+  Future<void> pickEnd(BuildContext context) async {
+    final base = startAt.value ?? DateTime.now();
+    final picked = await pickDateTime(
+      context,
+      initial: base.add(const Duration(hours: 1)),
+    );
+    if (picked == null) return;
+    endAt.value = picked;
+  }
+
+  /// Ambil lokasi dosen sekarang
+  Future<void> ambilLokasiSekarang() async {
+    loadingLokasi.value = true;
+    try {
+      final enabled = await Geolocator.isLocationServiceEnabled();
+      if (!enabled) {
+        Get.snackbar('Gagal', 'Location service belum aktif');
+        return;
+      }
+
+      var perm = await Geolocator.checkPermission();
+      if (perm == LocationPermission.denied) {
+        perm = await Geolocator.requestPermission();
+      }
+      if (perm == LocationPermission.denied ||
+          perm == LocationPermission.deniedForever) {
+        Get.snackbar('Gagal', 'Izin lokasi ditolak');
+        return;
+      }
+
+      final pos = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      latController.text = pos.latitude.toStringAsFixed(6);
+      lngController.text = pos.longitude.toStringAsFixed(6);
+    } finally {
+      loadingLokasi.value = false;
+    }
+  }
+
+  /// CREATE SESSION + PINDAH KE HALAMAN QR
+  Future<void> createPresensi(String dosenId) async {
+    if (selectedMataKuliah.value.isEmpty || pertemuanController.text.isEmpty) {
+      Get.snackbar('Gagal', 'Mata kuliah dan pertemuan wajib diisi');
       return;
     }
 
-    final token = generateToken(
-      mkCode: selectedMataKuliah.value.split(' ')[0], // IF204
-      pertemuan: pertemuanController.text,
-    );
+    final lat = double.tryParse(latController.text);
+    final lng = double.tryParse(lngController.text);
+    final pertemuan = int.tryParse(pertemuanController.text);
 
+    if (lat == null || lng == null || pertemuan == null) {
+      Get.snackbar('Gagal', 'Data lokasi / pertemuan tidak valid');
+      return;
+    }
+
+    final mkCode = selectedMataKuliah.value.split(' ').first;
+
+    // 🔥 SIMPAN SESSION KE FIRESTORE
+    final docRef = await firestore.collection('presensi_sessions').add({
+      'mk': mkCode,
+      'pertemuan': pertemuan,
+      'createdBy': dosenId,
+      'createdAt': Timestamp.now(),
+      'isActive': true,
+      'lat': lat,
+      'lng': lng,
+      'radius': selectedRadius.value,
+      'startAt': Timestamp.fromDate(startAt.value!),
+      'endAt': Timestamp.fromDate(endAt.value!),
+    });
+
+    final sessionId = docRef.id;
+
+    // PINDAH KE HALAMAN QR
     Get.toNamed(
       Routes.HASIL_QR,
-      arguments: {
-        'token': token,
-        'mataKuliah': selectedMataKuliah.value,
-        'kelas': kelasController.text,
-        'pertemuan': pertemuanController.text,
-      },
+      arguments: {'sessionId': sessionId, 'mk': mkCode, 'pertemuan': pertemuan},
     );
-  }
-
-  String generateToken({required String mkCode, required String pertemuan}) {
-    final now = DateTime.now();
-    final date =
-        '${now.year % 100}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}';
-
-    return 'SESSION_${date}_${mkCode}_$pertemuan';
   }
 }

@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
 
 class HasilAbsensiController extends GetxController {
-  //TODO: Implement HasilAbsensiController
   late final String mataKuliah;
   late final int pertemuan;
-  late String waktu;
+  late final String waktu;
   late final bool status;
   late final String keterangan;
   late final String sessionId;
@@ -13,24 +12,15 @@ class HasilAbsensiController extends GetxController {
   void onInit() {
     super.onInit();
 
-    final args = Get.arguments as Map<String, dynamic>;
+    final args = (Get.arguments ?? {}) as Map;
 
-    mataKuliah = args['mataKuliah'];
-    pertemuan = args['pertemuan'];
-    waktu = args['waktu'];
-    status = args['status'];
-    keterangan = args['keterangan'];
-    sessionId = args['sessionId'];
+    mataKuliah = (args['mataKuliah'] ?? '-').toString();
+    pertemuan = (args['pertemuan'] is num)
+        ? (args['pertemuan'] as num).toInt()
+        : 0;
+    waktu = (args['waktu'] ?? '').toString();
+    status = (args['status'] ?? false) as bool;
+    keterangan = (args['keterangan'] ?? '').toString();
+    sessionId = (args['sessionId'] ?? '').toString();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
 }

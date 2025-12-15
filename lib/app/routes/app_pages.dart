@@ -20,15 +20,14 @@ import '../modules/list_mahasiswa/bindings/list_mahasiswa_binding.dart';
 import '../modules/list_mahasiswa/views/list_mahasiswa_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
-import '../modules/testing/bindings/testing_binding.dart';
-import '../modules/testing/views/testing_view.dart';
+
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.BUAT_PRESENSI;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -50,11 +49,6 @@ class AppPages {
       name: _Paths.HASIL_ABSENSI,
       page: () => const HasilAbsensiView(),
       binding: HasilAbsensiBinding(),
-    ),
-    GetPage(
-      name: _Paths.TESTING,
-      page: () => const TestingView(),
-      binding: TestingBinding(),
     ),
     GetPage(
       name: _Paths.ADD_MAHASISWA,
