@@ -11,64 +11,73 @@ class AddPerkuliahanView extends GetView<AddPerkuliahanController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tambah Perkuliahan'),
-        centerTitle: true,
         backgroundColor: Colors.amber,
+        centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: controller.streamMK(),
-        builder: (context, snap) {
-          if (snap.connectionState == ConnectionState.waiting) {
+        stream: controller.streamPerkuliahanMahasiswa(),
+        builder: (context, snapJoined) {
+          if (snapJoined.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (snap.hasError) {
-            return Center(child: Text('Error: ${snap.error}'));
+          if (snapJoined.hasError) {
+            return Center(child: Text('Error: ${snapJoined.error}'));
           }
 
-          final docs = snap.data?.docs ?? [];
-          if (docs.isEmpty) {
-            return const Center(
-              child: Text('Mata kuliah tidak tersedia untuk semester ini'),
-            );
-          }
+          // yang sudah diikuti (pakai docId mata_kuliah karena kamu simpan doc(mkDoc.id))
+          final joinedDocs = snapJoined.data?.docs ?? [];
+          final joinedMkIds = joinedDocs.map((e) => e.id).toSet();
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: docs.length,
-            itemBuilder: (context, i) {
-              final doc = docs[i];
-              final d = doc.data();
+          return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: controller.streamMK(),
+            builder: (context, snapMk) {
+              if (snapMk.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapMk.hasError) {
+                return Center(child: Text('Error: ${snapMk.error}'));
+              }
 
-              final kode = (d['kode'] ?? '').toString();
-              final nama = (d['nama'] ?? '').toString();
-              final hari = (d['hari'] ?? '-').toString();
-              final semester = (d['semester'] as num?)?.toInt();
+              final mkDocs = snapMk.data?.docs ?? [];
+              if (mkDocs.isEmpty) {
+                return const Center(
+                  child: Text('Tidak ada mata kuliah tersedia'),
+                );
+              }
 
-              return Card(
-                elevation: 3,
-                margin: const EdgeInsets.only(bottom: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ListTile(
-                  title: Text('$kode - $nama'),
-                  subtitle: Text('Hari: $hari | Semester: ${semester ?? '-'}'),
-                  trailing: ElevatedButton(
-                    onPressed: () {
-                      Get.defaultDialog(
-                        title: 'Tambah Perkuliahan',
-                        middleText: 'Tambahkan mahasiswa ke:\n$kode - $nama ?',
-                        textCancel: 'Batal',
-                        textConfirm: 'Tambah',
-                        confirmTextColor: Colors.white,
-                        onConfirm: () async {
-                          Get.back(); // tutup dialog
-                          await controller.tambahMK(doc);
-                        },
-                      );
-                    },
-                    child: const Text('Tambah'),
-                  ),
-                ),
+              return ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: mkDocs.length,
+                itemBuilder: (context, i) {
+                  final mkDoc = mkDocs[i];
+                  final data = mkDoc.data();
+
+                  final kode = (data['kode'] ?? '').toString();
+                  final nama = (data['nama'] ?? '').toString();
+                  final hari = (data['hari'] ?? '-').toString();
+
+                  final sudahIkut = joinedMkIds.contains(mkDoc.id);
+
+                  return Card(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    child: ListTile(
+                      title: Text('$kode - $nama'),
+                      subtitle: Text('Hari: $hari'),
+                      trailing: ElevatedButton(
+                        onPressed: sudahIkut
+                            ? null
+                            : () => controller.tambahMK(mkDoc),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: sudahIkut
+                              ? Colors.grey
+                              : Colors.green,
+                          foregroundColor: Colors.white,
+                        ),
+                        child: Text(sudahIkut ? 'Mengikuti' : 'Tambah'),
+                      ),
+                    ),
+                  );
+                },
               );
             },
           );

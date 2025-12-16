@@ -28,6 +28,14 @@ class AddPerkuliahanController extends GetxController {
         .snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> streamPerkuliahanMahasiswa() {
+    return firestore
+        .collection('mahasiswa')
+        .doc(userId)
+        .collection('perkuliahan')
+        .snapshots();
+  }
+
   Future<void> tambahMK(DocumentSnapshot<Map<String, dynamic>> mkDoc) async {
     final data = mkDoc.data();
     if (data == null) return;
