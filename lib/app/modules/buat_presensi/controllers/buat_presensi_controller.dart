@@ -9,10 +9,13 @@ class BuatPresensiController extends GetxController {
   final firestore = FirebaseFirestore.instance;
 
   // Mata kuliah (sementara hardcode / nanti dari Firestore)
-  List<String> listMataKuliah = [
-    'IF204 - Pemrograman Mobile',
-    'IF201 - Basis Data',
-  ];
+  Map<String, String> mataKuliahProdi = {
+    'IF204 - Pemrograman Mobile': 'Ilmu Komputer',
+    'IF201 - Basis Data': 'Ilmu Komputer',
+    'FS101 - Fisika Dasar': 'Fisika',
+  };
+
+  List<String> listMataKuliah = [];
 
   RxString selectedMataKuliah = ''.obs;
 
@@ -98,9 +101,19 @@ class BuatPresensiController extends GetxController {
 
     final mkCode = selectedMataKuliah.value.split(' ').first;
 
+    final selectedMK = selectedMataKuliah.value;
+    final prodiMK = mataKuliahProdi[selectedMK];
+
+    if (prodiMK == null) {
+      Get.snackbar('Gagal', 'Prodi mata kuliah tidak ditemukan');
+      return;
+    }
+
     // 🔥 SIMPAN SESSION KE FIRESTORE
     final docRef = await firestore.collection('presensi_sessions').add({
       'mk': mkCode,
+      'mkName': selectedMK,
+      'prodi': prodiMK,
       'pertemuan': pertemuan,
       'createdBy': dosenId,
       'createdAt': Timestamp.now(),
@@ -119,5 +132,11 @@ class BuatPresensiController extends GetxController {
       Routes.HASIL_QR,
       arguments: {'sessionId': sessionId, 'mk': mkCode, 'pertemuan': pertemuan},
     );
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    listMataKuliah = mataKuliahProdi.keys.toList();
   }
 }

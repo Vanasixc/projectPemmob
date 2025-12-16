@@ -146,12 +146,12 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                 ),
               ),
               SizedBox(height: 20),
-              Container(
-                margin: const EdgeInsets.only(bottom: 50),
-                height: 50,
-                width: 200,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  alignment: WrapAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () {
@@ -163,7 +163,6 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                           buttonColor: Colors.red[400],
                           cancelTextColor: Colors.black,
                           middleText: '',
-
                           onConfirm: () {
                             controller.deleteMahasiswa();
                             Fluttertoast.showToast(msg: 'Data telah dihapus');
@@ -173,12 +172,11 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                       ),
-                      child: Text(
+                      child: const Text(
                         'Delete',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    SizedBox(width: 20),
                     ElevatedButton(
                       onPressed: () => Get.toNamed(
                         Routes.EDIT_MAHASISWA,
@@ -187,8 +185,21 @@ class DetailMahasiswaView extends GetView<DetailMahasiswaController> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                       ),
-                      child: Text(
+                      child: const Text(
                         'Edit',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => Get.toNamed(
+                        Routes.ADD_PERKULIAHAN,
+                        arguments: controller.mhs,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
+                      child: const Text(
+                        'Perkuliahan',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

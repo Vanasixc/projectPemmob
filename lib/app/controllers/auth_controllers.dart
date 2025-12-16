@@ -6,6 +6,7 @@ class AuthControllers extends GetxController {
   RxnString nimLogin = RxnString();
   RxnString passLogin = RxnString();
   RxnString namaLogin = RxnString();
+  RxnString mhsProdi = RxnString();
   RxnString docId = RxnString();
 
   Future<bool> login(String nim, String password) async {
@@ -32,6 +33,7 @@ class AuthControllers extends GetxController {
     nimLogin.value = data['NIM'];
     namaLogin.value = data['nama'];
     passLogin.value = data['password'];
+    mhsProdi.value = data['prodi'];
     docId.value = doc.id;
 
     Fluttertoast.showToast(msg: 'Selamat datang ${namaLogin.value}');

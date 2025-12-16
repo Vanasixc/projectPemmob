@@ -51,7 +51,7 @@ class ListMahasiswaView extends GetView<ListMahasiswaController> {
                   borderRadius: BorderRadius.circular(9),
                   child: Container(
                     padding: const EdgeInsets.all(20),
-                    height: 130,
+                    // height: 130,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

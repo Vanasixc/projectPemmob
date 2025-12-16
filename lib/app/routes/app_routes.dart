@@ -16,6 +16,9 @@ abstract class Routes {
   static const HASIL_QR = _Paths.HASIL_QR;
   static const ADD_USER = _Paths.ADD_USER;
   static const ADD_DOSEN = _Paths.ADD_DOSEN;
+  static const PERKULIAHAN = _Paths.PERKULIAHAN;
+  static const ADD_PERKULIAHAN = _Paths.ADD_PERKULIAHAN;
+  static const DETAIL_PERKULIAHAN = _Paths.DETAIL_PERKULIAHAN;
 }
 
 abstract class _Paths {
@@ -33,4 +36,7 @@ abstract class _Paths {
   static const HASIL_QR = '/hasil-qr';
   static const ADD_USER = '/add-user';
   static const ADD_DOSEN = '/add-dosen';
+  static const PERKULIAHAN = '/perkuliahan';
+  static const ADD_PERKULIAHAN = '/add-perkuliahan';
+  static const DETAIL_PERKULIAHAN = '/detail-perkuliahan';
 }

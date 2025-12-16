@@ -136,10 +136,14 @@ class HomeView extends GetView<HomeController> {
                                       if (snapshot.data!.get('role') ==
                                           'Admin') {
                                         Get.toNamed(Routes.LIST_MAHASISWA);
+                                      } else {
+                                        final authC =
+                                            Get.find<AuthControllers>();
+                                        debugPrint(
+                                          'DOC ID: ${authC.docId.value}',
+                                        );
+                                        Get.toNamed(Routes.PERKULIAHAN);
                                       }
-                                      Fluttertoast.showToast(
-                                        msg: 'Fitur ini masih dikembangkan',
-                                      );
                                     },
                                     child: Container(
                                       height: 150,

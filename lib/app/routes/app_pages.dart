@@ -4,10 +4,14 @@ import '../modules/absensi/bindings/absensi_binding.dart';
 import '../modules/absensi/views/absensi_view.dart';
 import '../modules/add_mahasiswa/bindings/add_mahasiswa_binding.dart';
 import '../modules/add_mahasiswa/views/add_mahasiswa_view.dart';
+import '../modules/add_perkuliahan/bindings/add_perkuliahan_binding.dart';
+import '../modules/add_perkuliahan/views/add_perkuliahan_view.dart';
 import '../modules/buat_presensi/bindings/buat_presensi_binding.dart';
 import '../modules/buat_presensi/views/buat_presensi_view.dart';
 import '../modules/detail_mahasiswa/bindings/detail_mahasiswa_binding.dart';
 import '../modules/detail_mahasiswa/views/detail_mahasiswa_view.dart';
+import '../modules/detail_perkuliahan/bindings/detail_perkuliahan_binding.dart';
+import '../modules/detail_perkuliahan/views/detail_perkuliahan_view.dart';
 import '../modules/edit_mahasiswa/bindings/edit_mahasiswa_binding.dart';
 import '../modules/edit_mahasiswa/views/edit_mahasiswa_view.dart';
 import '../modules/hasil_absensi/bindings/hasil_absensi_binding.dart';
@@ -20,7 +24,8 @@ import '../modules/list_mahasiswa/bindings/list_mahasiswa_binding.dart';
 import '../modules/list_mahasiswa/views/list_mahasiswa_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
-
+import '../modules/perkuliahan/bindings/perkuliahan_binding.dart';
+import '../modules/perkuliahan/views/perkuliahan_view.dart';
 
 part 'app_routes.dart';
 
@@ -79,6 +84,21 @@ class AppPages {
       name: _Paths.HASIL_QR,
       page: () => const HasilQrView(),
       binding: HasilQrBinding(),
+    ),
+    GetPage(
+      name: _Paths.PERKULIAHAN,
+      page: () => const PerkuliahanView(),
+      binding: PerkuliahanBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_PERKULIAHAN,
+      page: () => const AddPerkuliahanView(),
+      binding: AddPerkuliahanBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_PERKULIAHAN,
+      page: () => const DetailPerkuliahanView(),
+      binding: DetailPerkuliahanBinding(),
     ),
   ];
 }

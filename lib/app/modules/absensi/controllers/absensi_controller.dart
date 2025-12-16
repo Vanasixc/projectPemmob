@@ -188,6 +188,22 @@ class AbsensiController extends GetxController {
           .collection('records')
           .doc(userId);
 
+      final sessionProdi = (data['prodi'] ?? '').toString();
+      final mhsProdi = authC.mhsProdi.value;
+
+      if (mhsProdi != sessionProdi) {
+        await _goResult(
+          mk: mk,
+          pertemuan: pertemuan,
+          now: now,
+          status: false,
+          ket: 'Presensi tidak sesuai dengaan prodi Anda',
+          sessionId: sessionId,
+        );
+        return;
+      }
+      
+
       final recordSnap = await recordRef.get();
       if (recordSnap.exists) {
         await _goResult(
@@ -205,10 +221,6 @@ class AbsensiController extends GetxController {
         'nama': (nama ?? '-').toString(),
         'nim': (nim ?? '-').toString(),
         'scanAt': FieldValue.serverTimestamp(),
-        // nanti kalau checkLokasi() kamu bisa return lat/lng/distance mahasiswa:
-        // 'lat': latMahasiswa,
-        // 'lng': lngMahasiswa,
-        // 'distance': distance,
       });
 
       // sukses
