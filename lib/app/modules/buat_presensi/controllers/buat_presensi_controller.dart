@@ -1,29 +1,28 @@
-import 'package:belajar_getx/app/helper/start_end_presensi.dart';
-import 'package:belajar_getx/app/routes/app_pages.dart';
+import 'package:belajar_getx/app/data/models/model_mata_kuliah.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:belajar_getx/app/data/data_univ.dart';
+import 'package:belajar_getx/app/helper/start_end_presensi.dart';
+import 'package:belajar_getx/app/routes/app_pages.dart';
 
 class BuatPresensiController extends GetxController {
   final firestore = FirebaseFirestore.instance;
+  final dataUniv = Get.find<DataUniv>();
 
-  // Mata kuliah (sementara hardcode / nanti dari Firestore)
-  Map<String, String> mataKuliahProdi = {
-    'IF204 - Pemrograman Mobile': 'Ilmu Komputer',
-    'IF201 - Basis Data': 'Ilmu Komputer',
-    'FS101 - Fisika Dasar': 'Fisika',
-  };
+  // ====== MATA KULIAH (GETX STYLE) ======
+  final mkList = <MataKuliah>[].obs;
+  final mkLoading = false.obs;
+  final mkError = RxnString();
 
-  List<String> listMataKuliah = [];
+  final selectedMk = Rxn<MataKuliah>(); // yang dipilih
 
-  RxString selectedMataKuliah = ''.obs;
-
-  final pertemuanController = TextEditingController();
+  // lokasi & lainnya
   final latController = TextEditingController();
   final lngController = TextEditingController();
 
-  final List<int> radiusOptions = [10, 50, 100, 200, 500, 1000];
+  final List<int> radiusOptions = [10, 50, 100, 500, 1000];
   RxInt selectedRadius = 100.obs;
 
   RxBool loadingLokasi = false.obs;
@@ -31,12 +30,46 @@ class BuatPresensiController extends GetxController {
   Rxn<DateTime> startAt = Rxn<DateTime>();
   Rxn<DateTime> endAt = Rxn<DateTime>();
 
+  @override
+  void onInit() {
+    super.onInit();
+    fetchMataKuliah(); // fetch sekali saat controller dibuat
+  }
+
+  Future<void> fetchMataKuliah() async {
+    mkLoading.value = true;
+    mkError.value = null;
+
+    try {
+      // ambil semua mk aktif (kalau mau filter prodi/semester admin, tinggal tambah where)
+      final snap = await firestore
+          .collection('mata_kuliah')
+          .where('aktif', isEqualTo: true)
+          .get();
+
+      final temp = <MataKuliah>[];
+      for (final doc in snap.docs) {
+        final data = doc.data();
+        // pastikan field sesuai: kode, nama, semester, prodi
+        temp.add(MataKuliah.fromJson(data));
+      }
+
+      // urutkan opsional (biar rapi)
+      temp.sort((a, b) => a.kode.compareTo(b.kode));
+
+      mkList.assignAll(temp);
+    } catch (e) {
+      mkError.value = e.toString();
+    } finally {
+      mkLoading.value = false;
+    }
+  }
+
   Future<void> pickStart(BuildContext context) async {
     final picked = await pickDateTime(context, initial: DateTime.now());
     if (picked == null) return;
     startAt.value = picked;
 
-    // opsional: reset endAt kalau endAt jadi invalid
     if (endAt.value != null && !endAt.value!.isAfter(picked)) {
       endAt.value = null;
     }
@@ -52,7 +85,6 @@ class BuatPresensiController extends GetxController {
     endAt.value = picked;
   }
 
-  /// Ambil lokasi dosen sekarang
   Future<void> ambilLokasiSekarang() async {
     loadingLokasi.value = true;
     try {
@@ -83,41 +115,38 @@ class BuatPresensiController extends GetxController {
     }
   }
 
-  /// CREATE SESSION + PINDAH KE HALAMAN QR
   Future<void> createPresensi(String dosenId) async {
-    if (selectedMataKuliah.value.isEmpty || pertemuanController.text.isEmpty) {
-      Get.snackbar('Gagal', 'Mata kuliah dan pertemuan wajib diisi');
+    if (selectedMk.value == null || dataUniv.selectedPertemuan.value == null) {
+      Get.snackbar('Gagal', 'Mata kuliah atau pertemuan wajib diisi');
+      return;
+    }
+    if (startAt.value == null || endAt.value == null) {
+      Get.snackbar('Gagal', 'Waktu mulai & berakhir wajib diisi');
       return;
     }
 
     final lat = double.tryParse(latController.text);
     final lng = double.tryParse(lngController.text);
-    final pertemuan = int.tryParse(pertemuanController.text);
-
-    if (lat == null || lng == null || pertemuan == null) {
-      Get.snackbar('Gagal', 'Data lokasi / pertemuan tidak valid');
+    if (lat == null || lng == null) {
+      Get.snackbar('Gagal', 'Lokasi belum valid');
       return;
     }
 
-    final mkCode = selectedMataKuliah.value.split(' ').first;
+    final mk = selectedMk.value!;
+    final pertemuan = dataUniv.selectedPertemuan.value!;
 
-    final selectedMK = selectedMataKuliah.value;
-    final prodiMK = mataKuliahProdi[selectedMK];
-
-    if (prodiMK == null) {
-      Get.snackbar('Gagal', 'Prodi mata kuliah tidak ditemukan');
-      return;
-    }
-
-    // 🔥 SIMPAN SESSION KE FIRESTORE
+    // simpan session
     final docRef = await firestore.collection('presensi_sessions').add({
-      'mk': mkCode,
-      'mkName': selectedMK,
-      'prodi': prodiMK,
+      'mk': mk.kode,
+      'mkName': '${mk.kode} - ${mk.nama}',
+      'prodi': mk.prodi,
+      'semesterMk': mk.semester,
+
       'pertemuan': pertemuan,
       'createdBy': dosenId,
       'createdAt': Timestamp.now(),
       'isActive': true,
+
       'lat': lat,
       'lng': lng,
       'radius': selectedRadius.value,
@@ -125,18 +154,18 @@ class BuatPresensiController extends GetxController {
       'endAt': Timestamp.fromDate(endAt.value!),
     });
 
-    final sessionId = docRef.id;
-
-    // PINDAH KE HALAMAN QR
     Get.toNamed(
       Routes.HASIL_QR,
-      arguments: {'sessionId': sessionId, 'mk': mkCode, 'pertemuan': pertemuan},
+      arguments: {'sessionId': docRef.id, 'mk': mk.kode, 'pertemuan': pertemuan},
     );
   }
 
   @override
-  void onInit() {
-    super.onInit();
-    listMataKuliah = mataKuliahProdi.keys.toList();
+  void onClose() {
+    latController.dispose();
+    lngController.dispose();
+    dataUniv.selectedPertemuan.value = null;
+    selectedMk.value = null;
+    super.onClose();
   }
 }

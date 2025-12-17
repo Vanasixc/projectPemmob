@@ -179,9 +179,14 @@ class HomeView extends GetView<HomeController> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      Fluttertoast.showToast(
-                                        msg: 'Fitur ini masih dikembangkan',
-                                      );
+                                      if (snapshot.data!.get('role') ==
+                                          'Admin') {
+                                        Get.toNamed(Routes.ADD_MAHASISWA);
+                                      } else {
+                                        Fluttertoast.showToast(
+                                          msg: 'Fitur ini masih dikembangkan',
+                                        );
+                                      }
                                     },
                                     child: Container(
                                       height: 150,

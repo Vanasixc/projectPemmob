@@ -39,19 +39,44 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    Obx(
-                      () => CusDropDown<String>(
+
+                    Obx(() {
+                      if (controller.mkLoading.value) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (controller.mkError.value != null) {
+                        return Text(
+                          'Gagal load MK: ${controller.mkError.value}',
+                        );
+                      }
+                      if (controller.mkList.isEmpty) {
+                        return const Text('Mata kuliah kosong');
+                      }
+
+                      // yang tampil di dropdown
+                      final items = controller.mkList
+                          .map((m) => '${m.kode} - ${m.nama}')
+                          .toList();
+
+                      final selectedText = controller.selectedMk.value == null
+                          ? null
+                          : '${controller.selectedMk.value!.kode} - ${controller.selectedMk.value!.nama}';
+
+                      return CusDropDown<String>(
                         hint: 'Pilih Mata Kuliah',
-                        items: controller.listMataKuliah,
-                        selectedValue:
-                            controller.selectedMataKuliah.value.isEmpty
-                            ? null
-                            : controller.selectedMataKuliah.value,
+                        items: items,
+                        selectedValue: selectedText,
                         onChanged: (val) {
-                          controller.selectedMataKuliah.value = val!;
+                          if (val == null) return;
+
+                          final picked = controller.mkList.firstWhere(
+                            (m) => val == '${m.kode} - ${m.nama}',
+                          );
+                          controller.selectedMk.value = picked;
                         },
-                      ),
-                    ),
+                      );
+                    }),
+
                     const SizedBox(height: 20),
 
                     const Text(
@@ -62,10 +87,16 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    CusTextField(
-                      controller: controller.pertemuanController,
-                      isAngka: true,
-                      label: 'Pertemuan ke-',
+                    Obx(
+                      () => CusDropDown(
+                        hint: 'Pertemuan ke-',
+                        items: controller.dataUniv.pertemuan,
+                        selectedValue:
+                            controller.dataUniv.selectedPertemuan.value,
+                        onChanged: (val) {
+                          controller.dataUniv.selectedPertemuan.value = val;
+                        },
+                      ),
                     ),
                     const SizedBox(height: 20),
                     const Text(

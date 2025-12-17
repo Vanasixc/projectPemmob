@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 class DataUniv extends GetxController {
   //Dropdown
   List<String> listRole = ['Mahasiswa', 'Dosen', 'Admin'];
-  List<int> listSemester = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+
+  List<int> listSemester = List.generate(14, (i) => i + 1);
+  List<int> pertemuan = List.generate(16, (i) => i + 1);
+
   List<String> listFakultas = [
     "Matematika dan Ilmu Pengetahuan Alam",
     "Teknik",
@@ -28,12 +31,18 @@ class DataUniv extends GetxController {
     "Ekonomi Bisnis": ["Akuntansi", "Manajemen", "Ilmu Ekonomi"],
   };
 
+  Map<String, String> listMkProdi = {
+    'IF204 - Pemrograman Mobile': 'Ilmu Komputer',
+    'IF201 - Basis Data': 'Ilmu Komputer',
+    'FS101 - Fisika Dasar': 'Fisika',
+  };
 
   //Selected Data
   RxnString selectedRole = RxnString();
   RxnInt selectedSemester = RxnInt();
   RxString selectedFakultas = RxString("");
   RxString selectedProdi = RxString("");
+  RxnInt selectedPertemuan = RxnInt();
 
   List<String> get currentProdi {
     if (selectedFakultas.value.isEmpty) {

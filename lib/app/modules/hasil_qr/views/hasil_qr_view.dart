@@ -1,4 +1,5 @@
 import 'package:belajar_getx/app/modules/hasil_qr/controllers/hasil_qr_controller.dart';
+import 'package:belajar_getx/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -8,16 +9,13 @@ class HasilQrView extends GetView<HasilQrController> {
 
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments as Map<String, dynamic>;
-    final sessionId = args['sessionId']?.toString();
+    final token = controller.token;
 
-    if (sessionId == null || sessionId.isEmpty) {
+    if (token.isEmpty) {
       return const Scaffold(
         body: Center(child: Text('sessionId tidak ditemukan')),
       );
     }
-
-    final token = 'SESSION_$sessionId';
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +28,14 @@ class HasilQrView extends GetView<HasilQrController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              QrImageView(data: token, size: 250),
+              RepaintBoundary(
+                key: controller.qrKey,
+                child: QrImageView(
+                  data: token,
+                  size: 250,
+                  backgroundColor: Colors.white,
+                ),
+              ),
               const SizedBox(height: 20),
               Text(
                 token,
@@ -38,10 +43,32 @@ class HasilQrView extends GetView<HasilQrController> {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () => Get.back(),
-                child: const Text('Simpan QR'),
+
+              // Tombol Share
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: controller.shareQr,
+                    child: const Text('Share QR'),
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(Colors.green),
+                      foregroundColor: WidgetStatePropertyAll(Colors.white),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () => Get.offNamed(Routes.HOME),
+                    child: const Text('Home'),
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(Colors.red),
+                      foregroundColor: WidgetStatePropertyAll(Colors.white),
+                    ),
+                  ),
+                ],
               ),
+
+              const SizedBox(height: 10),
             ],
           ),
         ),

@@ -13,26 +13,27 @@ class LoginView extends GetView<LoginController> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.amber,
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(height: 100),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.qr_code_2, color: Colors.white, size: 50),
-                Text(
-                  'QRSense',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 100),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.qr_code_2, color: Colors.white, size: 50),
+                  Text(
+                    'QRSense',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 70),
-            Expanded(
-              child: Container(
+                ],
+              ),
+              SizedBox(height: 70),
+              Container(
+                height: Get.height,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -76,29 +77,33 @@ class LoginView extends GetView<LoginController> {
                       ),
                       SizedBox(height: 50),
                       Center(
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            elevation: WidgetStatePropertyAll(5),
-                            padding: WidgetStatePropertyAll(
-                              EdgeInsets.symmetric(horizontal: 70, vertical: 5),
+                        child: Row(
+                          children: [
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                elevation: WidgetStatePropertyAll(5),
+                                padding: WidgetStatePropertyAll(
+                                  EdgeInsets.symmetric(horizontal: 70, vertical: 5),
+                                ),
+                                backgroundColor: WidgetStatePropertyAll(
+                                  Colors.amber,
+                                ),
+                              ),
+                              onPressed: () async => controller.isLogin(),
+                              child: Text(
+                                'Login',
+                                style: TextStyle(color: Colors.white, fontSize: 30),
+                              ),
                             ),
-                            backgroundColor: WidgetStatePropertyAll(
-                              Colors.amber,
-                            ),
-                          ),
-                          onPressed: () async => controller.isLogin(),
-                          child: Text(
-                            'Login',
-                            style: TextStyle(color: Colors.white, fontSize: 30),
-                          ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

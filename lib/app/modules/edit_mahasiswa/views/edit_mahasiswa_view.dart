@@ -188,8 +188,8 @@ class EditMahasiswaView extends GetView<EditMahasiswaController> {
                       onPressed: () async {
                         try {
                           await controller.updateMahasiswa();
-                          Get.offNamed(Routes.LIST_MAHASISWA);
                           Fluttertoast.showToast(msg: 'Update Berhasil');
+                          Get.offNamed(Routes.LIST_MAHASISWA);
                         } catch (e) {
                           Get.snackbar('Gagal Update', e.toString());
                         }
