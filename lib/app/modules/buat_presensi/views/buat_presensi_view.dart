@@ -2,6 +2,7 @@ import 'package:belajar_getx/app/controllers/auth_controllers.dart';
 import 'package:belajar_getx/app/helper/costume_widgets.dart';
 import 'package:belajar_getx/app/modules/buat_presensi/controllers/buat_presensi_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class BuatPresensiView extends GetView<BuatPresensiController> {
@@ -53,7 +54,7 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
                         return const Text('Mata kuliah kosong');
                       }
 
-                      // yang tampil di dropdown
+                      // item dropdown
                       final items = controller.mkList
                           .map((m) => '${m.kode} - ${m.nama}')
                           .toList();
@@ -109,10 +110,28 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
                       child: Obx(
                         () => ElevatedButton(
                           onPressed: () => controller.pickStart(context),
+                          style: ButtonStyle(
+                            padding: WidgetStatePropertyAll(
+                              EdgeInsets.symmetric(vertical: 15.h),
+                            ),
+                            elevation: WidgetStatePropertyAll(0),
+                            backgroundColor: WidgetStatePropertyAll(
+                              Colors.amber,
+                            ),
+                            minimumSize: WidgetStatePropertyAll(
+                              Size(double.infinity, 40.h),
+                            ),
+                            shape: WidgetStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                            ),
+                          ),
                           child: Text(
                             controller.startAt.value == null
                                 ? 'Pilih waktu mulai'
                                 : controller.startAt.value.toString(),
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
@@ -129,10 +148,28 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
                       child: Obx(
                         () => ElevatedButton(
                           onPressed: () => controller.pickEnd(context),
+                          style: ButtonStyle(
+                            padding: WidgetStatePropertyAll(
+                              EdgeInsets.symmetric(vertical: 15.h),
+                            ),
+                            elevation: WidgetStatePropertyAll(0),
+                            backgroundColor: WidgetStatePropertyAll(
+                              Colors.amber,
+                            ),
+                            minimumSize: WidgetStatePropertyAll(
+                              Size(double.infinity, 40.h),
+                            ),
+                            shape: WidgetStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                            ),
+                          ),
                           child: Text(
                             controller.endAt.value == null
                                 ? 'Pilih waktu berakhir'
                                 : controller.endAt.value.toString(),
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
@@ -145,8 +182,31 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
                           onPressed: controller.loadingLokasi.value
                               ? null
                               : controller.ambilLokasiSekarang,
-                          icon: const Icon(Icons.my_location),
-                          label: const Text('Ambil Lokasi Sekarang'),
+                          style: ButtonStyle(
+                            padding: WidgetStatePropertyAll(
+                              EdgeInsets.symmetric(vertical: 15.h),
+                            ),
+                            elevation: WidgetStatePropertyAll(0),
+                            backgroundColor: WidgetStatePropertyAll(
+                              Colors.amber,
+                            ),
+                            minimumSize: WidgetStatePropertyAll(
+                              Size(double.infinity, 40.h),
+                            ),
+                            shape: WidgetStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                            ),
+                          ),
+                          icon: const Icon(
+                            Icons.my_location,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            'Ambil Lokasi Sekarang',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
@@ -203,10 +263,28 @@ class BuatPresensiView extends GetView<BuatPresensiController> {
                 child: ElevatedButton(
                   onPressed: () {
                     controller.createPresensi(
-                      Get.find<AuthControllers>().docId.value!, // id dosen
+                      Get.find<AuthControllers>().docId.value!,
                     );
                   },
-                  child: const Text('Create Presensi'),
+                  style: ButtonStyle(
+                    padding: WidgetStatePropertyAll(
+                      EdgeInsets.symmetric(vertical: 15.h),
+                    ),
+                    elevation: WidgetStatePropertyAll(0),
+                    backgroundColor: WidgetStatePropertyAll(Colors.amber),
+                    minimumSize: WidgetStatePropertyAll(
+                      Size(double.infinity, 40.h),
+                    ),
+                    shape: WidgetStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.r),
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                    'Create Presensi',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ],

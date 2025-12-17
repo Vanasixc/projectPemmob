@@ -39,7 +39,6 @@ class DetailPerkuliahanView extends GetView<DetailPerkuliahanController> {
             );
           }
 
-          // ✅ Sort di client (desc pertemuan) biar nggak perlu index
           docs.sort((a, b) {
             final pa = (a.data()['pertemuan'] as num?)?.toInt() ?? 0;
             final pb = (b.data()['pertemuan'] as num?)?.toInt() ?? 0;
@@ -63,7 +62,6 @@ class DetailPerkuliahanView extends GetView<DetailPerkuliahanController> {
                   .collection('records')
                   .doc(userId);
 
-              // ✅ Realtime status hadir
               return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                 stream: recordRef.snapshots(),
                 builder: (context, recordSnap) {

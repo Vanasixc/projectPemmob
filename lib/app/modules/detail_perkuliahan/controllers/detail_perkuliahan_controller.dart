@@ -23,8 +23,8 @@ class PresensiItem {
 class DetailPerkuliahanController extends GetxController {
   final firestore = FirebaseFirestore.instance;
 
-  late final String mkCode; // contoh: IF201
-  late final String mkTitle; // contoh: IF201 - Basis Data
+  late final String mkCode;
+  late final String mkTitle;
   late final String hari;
 
   final items = <PresensiItem>[].obs;
@@ -39,7 +39,6 @@ class DetailPerkuliahanController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // 1) ambil data login dari AuthControllers
     final authC = Get.find<AuthControllers>();
 
     final uid = authC.docId.value;
@@ -54,7 +53,7 @@ class DetailPerkuliahanController extends GetxController {
     nim = (authC.nimLogin.value ?? '-').toString();
     nama = (authC.namaLogin.value ?? '-').toString();
 
-    // 2) ambil arguments route
+    // Get arguments
     final args = Get.arguments;
     if (args == null || args is! Map<String, dynamic>) {
       mkCode = '';
@@ -67,7 +66,6 @@ class DetailPerkuliahanController extends GetxController {
     mkTitle = (args['mkTitle'] ?? mkCode).toString();
     hari = (args['hari'] ?? '-').toString();
 
-    // 3) panggil fetch biar langsung load data
     fetch();
   }
 
@@ -98,13 +96,12 @@ class DetailPerkuliahanController extends GetxController {
         final startAtTs = data['startAt'] as Timestamp?;
         final endAtTs = data['endAt'] as Timestamp?;
 
-        // kalau startAt/endAt null, skip biar ga crash
         if (startAtTs == null || endAtTs == null) continue;
 
         final startAt = startAtTs.toDate();
         final endAt = endAtTs.toDate();
 
-        // cek record user
+        // record user
         final recordRef = firestore
             .collection('presensi_sessions')
             .doc(doc.id)

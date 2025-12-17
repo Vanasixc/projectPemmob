@@ -40,7 +40,6 @@ class AuthControllers extends GetxController {
     return true;
   }
 
-  // mengambil ulang data mahasiswa
   Future<DocumentSnapshot<Map<String, dynamic>>?> getMahasiswa() async {
     if (docId.value == null) return null;
 

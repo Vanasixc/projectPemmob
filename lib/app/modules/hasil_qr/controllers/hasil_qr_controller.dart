@@ -33,7 +33,6 @@ class HasilQrController extends GetxController {
     }
   }
 
-  /// SHARE QR
   Future<void> shareQr() async {
     await Future.delayed(const Duration(milliseconds: 50));
 

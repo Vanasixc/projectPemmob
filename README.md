@@ -22,11 +22,19 @@ home_view.dart :
 
 ## Need
 Library/Tools :
-- [GetX](https://pub.dev/packages/get)
-- [Get_CLI](https://pub.dev/packages/get_cli)
-- [Geolocator](https://pub.dev/packages/geolocator)
-- [Mobile_Scanner](https://pub.dev/packages/mobile_scanner)
-- [cloud_firestore](https://pub.dev/packages/cloud_firestore)
+- [GetX](https://pub.dev/packages/get) => State Management
+- [Get_CLI](https://pub.dev/packages/get_cli) => Building Management
+- [Geolocator](https://pub.dev/packages/geolocator) => Untuk validasi lokasi absen
+- [Mobile_Scanner](https://pub.dev/packages/mobile_scanner) => Untuk Scan QR
+- [Cloud_Firestore](https://pub.dev/packages/cloud_firestore) => API Firebase Firestore
+- [Cupertino_Icons](https://pub.dev/packages/cupertino_icons) => Icons
+- [Firebase_Core](https://pub.dev/packages/firebase_core) => API Firebase
+- [Flutter_Screenutil](https://pub.dev/packages/firebase_core) => Untuk adapting screen
+- [Fluttertoast](https://pub.dev/packages/fluttertoast) => Untuk pop up notif
+- [Image_Picker](https://pub.dev/packages/image_picker) => Untuk bisa mengambil gambar dari library
+- [Path_Provider](https://pub.dev/packages/path_provider) => Untuk memudahkan mencari path system
+- [Qr_Flutter](https://pub.dev/packages/qr_flutter) => Generate QR
+- [Share_Plus](https://pub.dev/packages/share_plus) => Untuk bisa share something
 
 Extention (VScode) :
 - Error Lens
@@ -37,3 +45,4 @@ Extention (VScode) :
 - 7-12-25 => Selesai membuat validasi secara statis untuk lokasi menggunakan geolocator dan sudah bisa scan QR Code. Untuk sekarang QR Code dibuat lewat Canva saja, masih belum saya tambahkan fitur untuk membuat QR code sendiri. Isi dari QR code itu sendiri untuk sekarang adalah 'SESSION_xxx"
 - 8-12-25 => Selesai menyambungkan ke Firebase project QRSense. aku juga membuat page testing buat ngetes dan add data. desain masih simpel tapi untuk saat ini sudah berfungsi dengan baik. Reference : [Kuldi_Project_Firebase_Eps4](https://youtu.be/E3eZ_AqVbn4?si=5TCi9iq7VsjfMWQC)
 - 10-12-25 => Selesai membuat untuk stream di list mahasiswa. next aku ingin coba membuat page detail berdasarkan mahasiswanya dan bisa ngedit si mahasiswa agar service update bisa digunakan. semoga untuk image juga bisa selesai besok. Reference : [Kuldi_Project_All_Product](https://www.youtube.com/watch?v=GIxNwCeD5TM)
+- 18-12-25 => Done all for prototipe kecuali profile wkwkw

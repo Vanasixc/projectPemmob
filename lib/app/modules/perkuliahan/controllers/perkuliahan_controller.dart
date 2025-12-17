@@ -9,7 +9,6 @@ class PerkuliahanController extends GetxController {
   Stream<QuerySnapshot<Map<String, dynamic>>> streamPerkuliahan() {
     final uid = authC.docId.value;
     if (uid == null || uid.isEmpty) {
-      // stream kosong biar ga crash
       return const Stream.empty();
     }
 

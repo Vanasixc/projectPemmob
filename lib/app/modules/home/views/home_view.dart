@@ -2,6 +2,7 @@ import 'package:belajar_getx/app/controllers/auth_controllers.dart';
 import 'package:belajar_getx/app/routes/app_pages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
@@ -34,44 +35,153 @@ class HomeView extends GetView<HomeController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      SizedBox(height: 50),
-                      Text(
-                        'Selamat datang di QRSense',
-                        style: TextStyle(fontSize: 21, color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 15),
-                      Text(
-                        'Halo ${snapshot.data!.get('nama')}!',
-                        style: TextStyle(fontSize: 21, color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 15),
-                      Text(
-                        'NIM: ${snapshot.data!.get('NIM')}',
-                        style: TextStyle(fontSize: 21, color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 15),
-                      Text(
-                        'Fakultas: ${snapshot.data!.get('fakultas')}',
-                        style: TextStyle(fontSize: 21, color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 15),
-                      Text(
-                        'Prodi: ${snapshot.data!.get('prodi')}',
-                        style: TextStyle(fontSize: 21, color: Colors.white),
-                      ),
-                      SizedBox(height: 15),
-                      Text(
-                        'Semester: ${snapshot.data!.get('semester'.toString())}',
-                        style: TextStyle(fontSize: 21, color: Colors.white),
-                      ),
-                      SizedBox(height: 15),
-                    ],
+                  SizedBox(height: 50),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 30.h,
+                      horizontal: 30.w,
+                    ),
+                    width: 484.h,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: -25,
+                          right: 0,
+                          child: Image.asset(
+                            'assets/Mhs.png',
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Selamat Datang di QRSense',
+                              style: TextStyle(
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 37.h),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 22.w,
+                                vertical: 30.h,
+                              ),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFFFECB2),
+                                borderRadius: BorderRadius.circular(25.r),
+                              ),
+                              child: Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'NAMA',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      Text(
+                                        'NIM',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      Text(
+                                        'FAKULTAS',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      Text(
+                                        'PRODI',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      Text(
+                                        'SEMESTER',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: 15.w),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${snapshot.data!.get('nama')}',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      Text(
+                                        '${snapshot.data!.get('NIM')}',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      SizedBox(
+                                        width: 250.w,
+                                        child: Text(
+                                          '${snapshot.data!.get('fakultas')}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      Text(
+                                        '${snapshot.data!.get('prodi')}',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      Text(
+                                        '${snapshot.data!.get('semester')}',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 27),
                   Expanded(
@@ -88,6 +198,16 @@ class HomeView extends GetView<HomeController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Center(
+                            child: Text(
+                              'MENU',
+                              style: TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 40),
                           Column(
                             children: [
                               Row(
@@ -107,6 +227,7 @@ class HomeView extends GetView<HomeController> {
                                       height: 150,
                                       width: 150,
                                       child: Card(
+                                        color: Color(0xFFFFECB2),
                                         elevation: 5,
                                         margin: EdgeInsets.all(10),
                                         child: Column(
@@ -149,6 +270,7 @@ class HomeView extends GetView<HomeController> {
                                       height: 150,
                                       width: 150,
                                       child: Card(
+                                        color: Color(0xFFFFECB2),
                                         elevation: 5,
                                         margin: EdgeInsets.all(10),
                                         child: Column(
@@ -192,6 +314,7 @@ class HomeView extends GetView<HomeController> {
                                       height: 150,
                                       width: 150,
                                       child: Card(
+                                        color: Color(0xFFFFECB2),
                                         elevation: 5,
                                         margin: EdgeInsets.all(10),
                                         child: Column(
@@ -203,7 +326,10 @@ class HomeView extends GetView<HomeController> {
                                               scale: 1.6,
                                             ),
                                             Text(
-                                              'Profile',
+                                              snapshot.data!.get('role') ==
+                                                      'Admin'
+                                                  ? 'Add Mahasiswa'
+                                                  : 'Profile',
                                               style: TextStyle(fontSize: 16),
                                             ),
                                           ],
@@ -232,6 +358,7 @@ class HomeView extends GetView<HomeController> {
                                       height: 150,
                                       width: 150,
                                       child: Card(
+                                        color: Color(0xFFFFECB2),
                                         elevation: 5,
                                         margin: EdgeInsets.all(10),
                                         child: Column(

@@ -1,5 +1,6 @@
 import 'package:belajar_getx/app/data/models/model_mahasiswa.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class AddPerkuliahanController extends GetxController {
@@ -16,7 +17,7 @@ class AddPerkuliahanController extends GetxController {
 
     userId = mhs.uId!;
     prodiMahasiswa = mhs.prodi;
-    semesterMahasiswa = mhs.semester; // pastikan di model int
+    semesterMahasiswa = mhs.semester;
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> streamMK() {
@@ -44,7 +45,7 @@ class AddPerkuliahanController extends GetxController {
         .collection('mahasiswa')
         .doc(userId)
         .collection('perkuliahan')
-        .doc(mkDoc.id) // biar unik per MK
+        .doc(mkDoc.id)
         .set({
           'kode': (data['kode'] ?? '').toString(),
           'nama': (data['nama'] ?? '').toString(),
@@ -55,6 +56,6 @@ class AddPerkuliahanController extends GetxController {
         });
 
     Get.back();
-    Get.snackbar('Berhasil', 'Mahasiswa ditambahkan ke mata kuliah');
+    Fluttertoast.showToast(msg: 'Mahasiswa ditambahkan ke mata kuliah');
   }
 }

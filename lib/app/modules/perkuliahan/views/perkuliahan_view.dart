@@ -11,7 +11,10 @@ class PerkuliahanView extends GetView<PerkuliahanController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Perkuliahan')),
+      appBar: AppBar(
+        title: const Text('Perkuliahan'),
+        backgroundColor: Colors.amber,
+      ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: controller.streamPerkuliahan(),
         builder: (context, snapshot) {
@@ -29,34 +32,58 @@ class PerkuliahanView extends GetView<PerkuliahanController> {
           }
 
           return ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             itemCount: docs.length,
             itemBuilder: (context, i) {
-              final doc = docs[i];
-              final d = doc.data();
+              final d = docs[i].data();
 
               final kode = (d['kode'] ?? '').toString();
               final nama = (d['nama'] ?? '').toString();
               final hari = (d['hari'] ?? '-').toString();
 
-              return InkWell(
-                onTap: () {
-                  debugPrint('TAP MK: kode=$kode nama=$nama hari=$hari');
-
-                  Get.toNamed(
-                    Routes.DETAIL_PERKULIAHAN,
-                    arguments: {
-                      'mkCode': kode,
-                      'mkTitle': '$kode - $nama',
-                      'hari': hari,
-                    },
-                  );
-                },
-
-                child: Card(
-                  margin: const EdgeInsets.all(12),
+              return Card(
+                color: const Color(0xFFFFECB2),
+                elevation: 2,
+                margin: const EdgeInsets.only(bottom: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(12),
+                  onTap: () {
+                    Get.toNamed(
+                      Routes.DETAIL_PERKULIAHAN,
+                      arguments: {
+                        'mkCode': kode,
+                        'mkTitle': '$kode - $nama',
+                        'hari': hari,
+                      },
+                    );
+                  },
                   child: ListTile(
-                    title: Text(nama),
-                    subtitle: Text('Kode: $kode | Hari: ${hari.toUpperCase()}'),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 6,
+                    ),
+                    leading: const Icon(
+                      Icons.menu_book_rounded,
+                      color: Colors.black87,
+                    ),
+                    title: Text(
+                      nama,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    subtitle: Text('Kode: $kode'),
+                    trailing: Chip(
+                      label: Text(
+                        hari.toUpperCase(),
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      backgroundColor: Colors.white.withOpacity(0.85),
+                      side: BorderSide(color: Colors.black.withOpacity(0.08)),
+                    ),
                   ),
                 ),
               );

@@ -24,7 +24,6 @@ class AddPerkuliahanView extends GetView<AddPerkuliahanController> {
             return Center(child: Text('Error: ${snapJoined.error}'));
           }
 
-          // yang sudah diikuti (pakai docId mata_kuliah karena kamu simpan doc(mkDoc.id))
           final joinedDocs = snapJoined.data?.docs ?? [];
           final joinedMkIds = joinedDocs.map((e) => e.id).toSet();
 
@@ -54,15 +53,16 @@ class AddPerkuliahanView extends GetView<AddPerkuliahanController> {
 
                   final kode = (data['kode'] ?? '').toString();
                   final nama = (data['nama'] ?? '').toString();
-                  final hari = (data['hari'] ?? '-').toString();
+                  final prodi = (data['prodi'] ?? '-').toString();
 
                   final sudahIkut = joinedMkIds.contains(mkDoc.id);
 
                   return Card(
+                    color: Color(0xFFFFECB2),
                     margin: const EdgeInsets.only(bottom: 12),
                     child: ListTile(
                       title: Text('$kode - $nama'),
-                      subtitle: Text('Hari: $hari'),
+                      subtitle: Text('prodi: $prodi'),
                       trailing: ElevatedButton(
                         onPressed: sudahIkut
                             ? null

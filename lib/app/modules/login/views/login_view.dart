@@ -1,5 +1,6 @@
 import 'package:belajar_getx/app/helper/costume_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
@@ -10,59 +11,46 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.amber,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 100),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.qr_code_2, color: Colors.white, size: 50),
-                  Text(
-                    'QRSense',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                    ),
+          child: Container(
+            height: Get.height,
+            child: Column(
+              children: [
+                SizedBox(height: 115.h),
+                Image.asset('assets/LOGO.png', width: 120.w, height: 120.h),
+                SizedBox(height: 115.h),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30.w,
+                    vertical: 30.h,
                   ),
-                ],
-              ),
-              SizedBox(height: 70),
-              Container(
-                height: Get.height,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsGeometry.symmetric(
-                    horizontal: 20,
-                    vertical: 40,
+                  margin: EdgeInsets.symmetric(horizontal: 35.w),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(39.r),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Login',
-                        style: TextStyle(color: Colors.black, fontSize: 35),
+                        'LOGIN',
+                        style: TextStyle(
+                          fontSize: 57.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 60.h),
                       CusTextField(
                         controller: controller.nimController,
                         label: 'NIM',
                         isAngka: true,
                         usePrefixIcon: true,
-                        prefixIcon: Icon(Icons.email),
+                        prefixIcon: Icon(Icons.mail),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 31.h),
                       Obx(
                         () => CusTextField(
                           controller: controller.passwordController,
@@ -75,34 +63,54 @@ class LoginView extends GetView<LoginController> {
                               controller.isHidden.toggle(),
                         ),
                       ),
-                      SizedBox(height: 50),
-                      Center(
-                        child: Row(
-                          children: [
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                elevation: WidgetStatePropertyAll(5),
-                                padding: WidgetStatePropertyAll(
-                                  EdgeInsets.symmetric(horizontal: 70, vertical: 5),
-                                ),
-                                backgroundColor: WidgetStatePropertyAll(
-                                  Colors.amber,
-                                ),
-                              ),
-                              onPressed: () async => controller.isLogin(),
-                              child: Text(
-                                'Login',
-                                style: TextStyle(color: Colors.white, fontSize: 30),
-                              ),
+                      SizedBox(height: 50.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Forgot password? '),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Text(
+                              'Click here',
+                              style: TextStyle(color: Colors.amber),
                             ),
-                          ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 40.h),
+                      ElevatedButton(
+                        onPressed: () {
+                          controller.isLogin();
+                        },
+                        style: ButtonStyle(
+                          padding: WidgetStatePropertyAll(
+                            EdgeInsets.symmetric(vertical: 15.h),
+                          ),
+                          elevation: WidgetStatePropertyAll(0),
+                          backgroundColor: WidgetStatePropertyAll(Colors.amber),
+                          minimumSize: WidgetStatePropertyAll(
+                            Size(344.w, 40.h),
+                          ),
+                          shape: WidgetStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24.sp,
+                          ),
                         ),
                       ),
+                      SizedBox(height: 30.h),
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

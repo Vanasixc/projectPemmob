@@ -1,5 +1,6 @@
 import 'package:belajar_getx/app/helper/costume_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
@@ -16,7 +17,6 @@ class AddMahasiswaView extends GetView<AddMahasiswaController> {
         title: const Text('Tambah Mahasiswa'),
         centerTitle: true,
         backgroundColor: Colors.amber,
-        foregroundColor: Colors.white,
       ),
       body: SafeArea(
         child: Container(
@@ -59,7 +59,8 @@ class AddMahasiswaView extends GetView<AddMahasiswaController> {
                     label: 'Fakultas',
                     hint: 'Pilih Fakultas',
                     items: controller.dataUniv.listFakultas,
-                    selectedValue: controller.dataUniv.selectedFakultas.value.isEmpty
+                    selectedValue:
+                        controller.dataUniv.selectedFakultas.value.isEmpty
                         ? null
                         : controller.dataUniv.selectedFakultas.value,
                     onChanged: (value) {
@@ -77,7 +78,8 @@ class AddMahasiswaView extends GetView<AddMahasiswaController> {
                         ? 'Pilih Fakultas'
                         : 'Pilih Prodi',
                     items: controller.dataUniv.currentProdi,
-                    selectedValue: controller.dataUniv.selectedProdi.value.isEmpty
+                    selectedValue:
+                        controller.dataUniv.selectedProdi.value.isEmpty
                         ? null
                         : controller.dataUniv.selectedProdi.value,
                     onChanged: (value) {
@@ -116,7 +118,25 @@ class AddMahasiswaView extends GetView<AddMahasiswaController> {
                     onPressed: () {
                       controller.addMahasiswa();
                     },
-                    child: Text('Tambah Data'),
+                    style: ButtonStyle(
+                      padding: WidgetStatePropertyAll(
+                        EdgeInsets.symmetric(vertical: 15.h),
+                      ),
+                      elevation: WidgetStatePropertyAll(0),
+                      backgroundColor: WidgetStatePropertyAll(Colors.amber),
+                      minimumSize: WidgetStatePropertyAll(
+                        Size(double.infinity, 40.h),
+                      ),
+                      shape: WidgetStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      'Tambah Data',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],

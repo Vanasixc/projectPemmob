@@ -10,7 +10,6 @@ class EditMahasiswaController extends GetxController {
   RxString photoPath = ''.obs;
   final profileImage = Get.find<ProfileController>();
 
-  // get model yang sama dari detail mahasiswa
   final modelMahasiswa mhs = Get.arguments;
 
   final service = Get.find<ServicesMahasiswa>();

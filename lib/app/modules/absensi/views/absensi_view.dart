@@ -10,7 +10,10 @@ class AbsensiView extends GetView<AbsensiController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Scan QR Absensi')),
+      appBar: AppBar(
+        title: Text('Scan QR Absensi'),
+        backgroundColor: Colors.amber,
+      ),
       body: MobileScanner(
         onDetect: (capture) {
           final barcode = capture.barcodes.first;

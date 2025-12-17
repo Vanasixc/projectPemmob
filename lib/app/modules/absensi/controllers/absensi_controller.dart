@@ -47,7 +47,7 @@ class AbsensiController extends GetxController {
 
       final sessionId = code.replaceFirst('SESSION_', '').trim();
 
-      // 1) ambil session dari firestore
+      // ambil session dari firestore
       final doc = await FirebaseFirestore.instance
           .collection('presensi_sessions')
           .doc(sessionId)
@@ -85,7 +85,7 @@ class AbsensiController extends GetxController {
         return;
       }
 
-      // 2) validasi waktu (aman dari null)
+      // validasi waktu
       final startTs = data['startAt'];
       final endTs = data['endAt'];
 
@@ -128,7 +128,7 @@ class AbsensiController extends GetxController {
         return;
       }
 
-      // 3) validasi lokasi (aman dari null)
+      // validasi lokasi
       final rawLat = data['lat'];
       final rawLng = data['lng'];
       final rawRadius = data['radius'];
@@ -163,7 +163,7 @@ class AbsensiController extends GetxController {
         return;
       }
 
-      // 4) simpan absensi ke subcollection records/{userId}
+      // save absensi ke subcollection mahasiswa
       final authC = Get.find<AuthControllers>();
 
       final userId = authC.docId.value;
@@ -197,7 +197,7 @@ class AbsensiController extends GetxController {
           pertemuan: pertemuan,
           now: now,
           status: false,
-          ket: 'Presensi tidak sesuai dengaan prodi Anda',
+          ket: 'Presensi tidak sesuai dengan prodi Anda',
           sessionId: sessionId,
         );
         return;

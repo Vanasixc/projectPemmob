@@ -37,7 +37,7 @@ class DataUniv extends GetxController {
     'FS101 - Fisika Dasar': 'Fisika',
   };
 
-  //Selected Data
+  // selected Data
   RxnString selectedRole = RxnString();
   RxnInt selectedSemester = RxnInt();
   RxString selectedFakultas = RxString("");

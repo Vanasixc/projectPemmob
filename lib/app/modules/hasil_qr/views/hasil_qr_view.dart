@@ -44,7 +44,6 @@ class HasilQrView extends GetView<HasilQrController> {
               ),
               const SizedBox(height: 30),
 
-              // Tombol Share
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
